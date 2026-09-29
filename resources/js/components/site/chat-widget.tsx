@@ -6,9 +6,24 @@ import { ChatEmoji } from '@/components/chat-emoji';
 
 type Message = { from: string; body: string; at: string };
 
-const TOKEN_KEY = 'patrice.chat';
+const TOKEN_KEY = 'irish.chat';
+
+// The key this was stored under before the rebrand, read once and then moved.
+// Renaming the key without this would hand every returning visitor a fresh
+// identity, splitting one conversation into two and leaving the front desk
+// looking at half a thread.
+const LEGACY_TOKEN_KEY = 'patrice.chat';
 
 const token = (): string => {
+    const legacy = window.localStorage.getItem(LEGACY_TOKEN_KEY);
+
+    if (legacy) {
+        window.localStorage.setItem(TOKEN_KEY, legacy);
+        window.localStorage.removeItem(LEGACY_TOKEN_KEY);
+
+        return legacy;
+    }
+
     let existing = window.localStorage.getItem(TOKEN_KEY);
 
     if (!existing) {

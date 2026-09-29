@@ -87,7 +87,7 @@ export default function Payslip({ payslip }: Props) {
                     <div className="flex items-baseline justify-between border-b border-border pb-4">
                         <div>
                             <p className="font-display text-xl">
-                                Patrice Wellness
+                                Irish Wellness
                             </p>
                             <p className="text-sm text-muted-foreground">
                                 Payslip · {payslip.label}

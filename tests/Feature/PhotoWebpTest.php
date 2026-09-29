@@ -21,7 +21,7 @@ afterEach(function () {
 
 function manager(): User
 {
-    return User::where('email', 'owner@patrice.test')->firstOrFail();
+    return User::where('email', 'owner@irish.test')->firstOrFail();
 }
 
 function shopBalm(): Product
@@ -150,7 +150,7 @@ it('removes a product photo without touching a clinic image that predates it', f
 });
 
 it('will not let the desk change a photo without the permission', function () {
-    $reception = User::where('email', 'reception@patrice.test')->firstOrFail();
+    $reception = User::where('email', 'reception@irish.test')->firstOrFail();
 
     $this->actingAs($reception)
         ->post('/admin/catalog/products/'.shopBalm()->id.'/photo', [

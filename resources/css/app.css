@@ -18,16 +18,56 @@
     --radius-md: var(--radius);
     --radius-sm: var(--radius);
 
-    /* Brand palette (mirrors config/clinic.php colors): deep plum-violet
-       fields, Patrice violet for emphasis, champagne gold for accents. */
-    --color-plum: #3e1459;
-    --color-plum-deep: #2a0b3d;
-    --color-violet: #7822b8;
-    --color-lilac: #e7daf2;
-    --color-mist: #f7f3fa;
-    --color-gold: #d4ae6a;
-    --color-gold-deep: #9c7330;
-    --color-ink: #1e0f2b;
+    /*
+     * The brand palette.
+     *
+     * These eight are the owner's colours and are used verbatim:
+     *
+     *   ivory -> soft-rose -> blush -> rose (brand) -> deep-rose -> plum (dark)
+     *   (page)  (tint)      (wash)   (fill)        (emphasis)   (anchor)
+     *
+     * `champagne` is the metallic accent the buttons and rules are painted in.
+     *
+     * `plum` is the dark field the light pinks sit on. Signature rose #F47FA4
+     * carries white text at only 2.5:1, so it is a fill and a border, never a
+     * background for text. Every "dark" surface in the design is plum, which
+     * takes white at 14.2:1.
+     *
+     * Contrast, checked against ivory:
+     *   plum       #3B2430  14.2:1   dark surfaces, text on champagne
+     *   text       #51454A   9.1:1   body copy
+     *   rose-ink   #A83257   5.1:1   links and small emphasis
+     *   deep-rose  #D9577F   3.7:1   fills, rules, large text only
+     *   rose       #F47FA4   2.5:1   decorative fills and borders only
+     *
+     * `rose-ink` is derived, not supplied. Deep rose fails AA as link text at
+     * 3.7:1, so the one shade between the brand rose and plum is kept for text
+     * that has to carry meaning. Never add a new link colour; use this one.
+     */
+    --color-ivory: #fffdfc;
+    --color-soft-rose: #fff4f7;
+    --color-blush: #fce8ee;
+    --color-rose: #f47fa4;
+    --color-rose-deep: #d9577f;
+    --color-rose-ink: #a83257;
+    --color-champagne: #c9a46c;
+    --color-plum: #3b2430;
+    --color-plum-deep: #2a1a23;
+    --color-text: #51454a;
+
+    /*
+     * Legacy aliases. The old brand was plum, violet and gold and those names
+     * are spread across 62 components, most of them doing the same job in a
+     * different colour. Aliasing them means the whole product rebrands from
+     * this one block, and each call site can be renamed to something honest as
+     * it is next touched. Do not add a new call site using a legacy name.
+     */
+    --color-violet: var(--color-rose-ink);
+    --color-gold: var(--color-champagne);
+    --color-gold-deep: #a83257;
+    --color-lilac: var(--color-blush);
+    --color-mist: var(--color-soft-rose);
+    --color-ink: var(--color-plum);
 
     --color-background: var(--background);
     --color-foreground: var(--foreground);
@@ -89,74 +129,74 @@
 
 :root,
 .theme-light {
-    --background: #ffffff;
-    --foreground: #1e0f2b;
-    --card: #ffffff;
-    --card-foreground: #1e0f2b;
-    --popover: #ffffff;
-    --popover-foreground: #1e0f2b;
-    --primary: #3e1459;
+    --background: #fffdfc;
+    --foreground: #51454a;
+    --card: #fffdfc;
+    --card-foreground: #51454a;
+    --popover: #fffdfc;
+    --popover-foreground: #51454a;
+    --primary: #a83257;
     --primary-foreground: #ffffff;
-    --secondary: #e7daf2;
-    --secondary-foreground: #2a0b3d;
-    --muted: #f7f3fa;
-    --muted-foreground: #5d4f69;
-    --accent: #f1e9f7;
-    --accent-foreground: #1e0f2b;
+    --secondary: #fce8ee;
+    --secondary-foreground: #3b2430;
+    --muted: #fff4f7;
+    --muted-foreground: #6b5b61;
+    --accent: #f47fa4;
+    --accent-foreground: #3b2430;
     --destructive: #b42318;
-    --destructive-foreground: #b42318;
-    --border: #e6dcee;
-    --input: #d6c7e2;
-    --ring: #7822b8;
-    --chart-1: #3e1459;
-    --chart-2: #d4ae6a;
-    --chart-3: #7822b8;
-    --chart-4: #b995dc;
-    --chart-5: #8a7d96;
+    --destructive-foreground: #ffffff;
+    --border: #f2dce5;
+    --input: #ebc9d6;
+    --ring: #d9577f;
+    --chart-1: #d9577f;
+    --chart-2: #f47fa4;
+    --chart-3: #a83257;
+    --chart-4: #c9a46c;
+    --chart-5: #6b5b61;
     --radius: 0;
-    --sidebar: #2a0b3d;
-    --sidebar-foreground: #e7daf2;
-    --sidebar-primary: #d4ae6a;
-    --sidebar-primary-foreground: #1e0f2b;
-    --sidebar-accent: #3e1459;
-    --sidebar-accent-foreground: #ffffff;
-    --sidebar-border: #4a1a69;
-    --sidebar-ring: #d4ae6a;
+    --sidebar: #3b2430;
+    --sidebar-foreground: #fce8ee;
+    --sidebar-primary: #c9a46c;
+    --sidebar-primary-foreground: #3b2430;
+    --sidebar-accent: #4a3039;
+    --sidebar-accent-foreground: #fffdfc;
+    --sidebar-border: #5b3a45;
+    --sidebar-ring: #c9a46c;
 }
 
 .dark {
-    --background: #140a1d;
-    --foreground: #f1eaf7;
-    --card: #1d0f29;
-    --card-foreground: #f1eaf7;
-    --popover: #1d0f29;
-    --popover-foreground: #f1eaf7;
-    --primary: #c9a2ea;
-    --primary-foreground: #140a1d;
-    --secondary: #2c1640;
-    --secondary-foreground: #e7daf2;
-    --muted: #241235;
-    --muted-foreground: #b3a3c2;
-    --accent: #2c1640;
-    --accent-foreground: #f1eaf7;
+    --background: #2a1a23;
+    --foreground: #fff4f7;
+    --card: #3b2430;
+    --card-foreground: #fff4f7;
+    --popover: #3b2430;
+    --popover-foreground: #fff4f7;
+    --primary: #f47fa4;
+    --primary-foreground: #2a1a23;
+    --secondary: #4a3039;
+    --secondary-foreground: #fff4f7;
+    --muted: #3b2430;
+    --muted-foreground: #e8c9d3;
+    --accent: #4a3039;
+    --accent-foreground: #fff4f7;
     --destructive: #f04438;
-    --destructive-foreground: #f97066;
-    --border: #36204a;
-    --input: #432a5a;
-    --ring: #d4ae6a;
-    --chart-1: #c9a2ea;
-    --chart-2: #d4ae6a;
-    --chart-3: #9b5fd6;
-    --chart-4: #ebcf94;
-    --chart-5: #b3a3c2;
-    --sidebar: #0f0616;
-    --sidebar-foreground: #e4d6ef;
-    --sidebar-primary: #d4ae6a;
-    --sidebar-primary-foreground: #140a1d;
-    --sidebar-accent: #221033;
-    --sidebar-accent-foreground: #f1eaf7;
-    --sidebar-border: #2c1640;
-    --sidebar-ring: #d4ae6a;
+    --destructive-foreground: #2a1a23;
+    --border: #5b3a45;
+    --input: #6b4550;
+    --ring: #f47fa4;
+    --chart-1: #f47fa4;
+    --chart-2: #d9577f;
+    --chart-3: #c9a46c;
+    --chart-4: #fce8ee;
+    --chart-5: #e8c9d3;
+    --sidebar: #241419;
+    --sidebar-foreground: #fce8ee;
+    --sidebar-primary: #c9a46c;
+    --sidebar-primary-foreground: #2a1a23;
+    --sidebar-accent: #3b2430;
+    --sidebar-accent-foreground: #fff4f7;
+    --sidebar-border: #5b3a45;
+    --sidebar-ring: #c9a46c;
 }
 
 @layer base {
@@ -177,36 +217,166 @@
 
 /* Public site: theme the parts the browser draws. */
 .site ::selection {
-    background: var(--color-gold);
-    color: var(--color-ink);
+    background: var(--color-champagne);
+    color: var(--color-plum-deep);
 }
 
 .site {
-    scrollbar-color: var(--color-plum) var(--color-mist);
-    accent-color: var(--color-plum);
+    scrollbar-color: var(--color-rose-deep) var(--color-blush);
+    accent-color: var(--color-rose-deep);
 }
 
 .site :focus-visible {
-    outline: 2px solid var(--color-violet);
+    outline: 2px solid var(--color-rose-deep);
     outline-offset: 3px;
 }
 
 .site .on-dark :focus-visible {
-    outline-color: var(--color-gold);
+    outline-color: var(--color-champagne);
 }
 
-/* Appointment card stock: white face with a debossed hairline edge. */
+/* Appointment card stock: ivory face with a debossed hairline edge. */
 .card-stock {
-    background: #fff;
+    background: #fffdfc;
     box-shadow:
-        inset 0 0 0 1px rgb(30 15 43 / 0.08),
-        inset 0 0 0 6px #fff,
-        inset 0 0 0 7px rgb(30 15 43 / 0.06),
-        0 24px 48px -24px rgb(20 6 30 / 0.5);
+        inset 0 0 0 1px rgb(81 69 74 / 0.08),
+        inset 0 0 0 6px #fffdfc,
+        inset 0 0 0 7px rgb(81 69 74 / 0.06),
+        0 24px 48px -24px rgb(42 26 35 / 0.45);
 }
 
 .numerals {
     font-variant-numeric: tabular-nums lining-nums;
+}
+
+/*
+ * Editorial primitives.
+ *
+ * The marketing pages repeat the same three shapes over and over: a small
+ * tracked label above a heading, a hairline that fades to nothing, and a solid
+ * action. Writing them once is what stops twelve sections from each inventing
+ * their own version of "eyebrow".
+ */
+
+/* Small tracked label that sits above a section heading. */
+.eyebrow {
+    font-size: 0.6875rem;
+    line-height: 1;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-rose-ink);
+}
+
+.on-dark .eyebrow,
+.eyebrow.on-dark {
+    color: var(--color-champagne);
+}
+
+/* Hairline that fades out to the right, for separating bands. */
+.rule-fade {
+    height: 1px;
+    background: linear-gradient(
+        90deg,
+        var(--color-rose-deep),
+        var(--color-blush) 45%,
+        transparent
+    );
+}
+
+/*
+ * The action button. `rose-deep` is the darkest pink that still clears AA
+ * against white text, so a filled button is that and never `rose` itself.
+ */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.25rem;
+    text-align: center;
+    transition:
+        transform 160ms cubic-bezier(0.23, 1, 0.32, 1),
+        background-color 160ms ease-out,
+        color 160ms ease-out,
+        border-color 160ms ease-out;
+}
+
+.btn:active {
+    transform: scale(0.97);
+}
+
+.btn-solid {
+    background: var(--color-rose-deep);
+    color: #fff;
+}
+
+.btn-solid:hover {
+    background: var(--color-rose-ink);
+}
+
+/* On a plum field the filled action is champagne, with dark text. */
+.on-dark .btn-solid {
+    background: var(--color-champagne);
+    color: var(--color-plum-deep);
+}
+
+.on-dark .btn-solid:hover {
+    background: #fff;
+}
+
+.btn-outline {
+    border: 1px solid var(--color-rose-deep);
+    color: var(--color-rose-ink);
+}
+
+.btn-outline:hover {
+    background: var(--color-rose-deep);
+    color: #fff;
+}
+
+.on-dark .btn-outline {
+    border-color: rgb(255 255 255 / 0.35);
+    color: #fff;
+}
+
+.on-dark .btn-outline:hover {
+    border-color: var(--color-champagne);
+    background: var(--color-champagne);
+    color: var(--color-plum-deep);
+}
+
+/* A figure that leads a stat row, with the brand rule above it. */
+.figure-rule {
+    position: relative;
+}
+
+.figure-rule::before {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    top: 0;
+    height: 2px;
+    background: linear-gradient(
+        90deg,
+        var(--color-rose-deep),
+        var(--color-champagne)
+    );
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .figure-rule::before {
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 260ms cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .figure-rule:hover::before,
+    .figure-rule:focus-visible::before {
+        transform: scaleX(1);
+    }
 }
 
 /* One reveal grammar for the whole site: content is visible by default,

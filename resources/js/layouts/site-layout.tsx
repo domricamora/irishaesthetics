@@ -49,25 +49,35 @@ export default function SiteLayout({ children }: { children: ReactNode }) {
                 Skip to content
             </a>
 
-            <header className="on-dark sticky top-0 z-40 border-b border-white/10 bg-plum text-white">
-                <div className="flex h-20 items-center justify-between gap-6 px-4 sm:px-8 lg:px-12">
+            {/*
+                The announcement bar the reference layout opens with. It sits
+                above the sticky header rather than inside it, so scrolling
+                past the first screen takes it away and gives the header the
+                full width to itself.
+            */}
+            <p className="bg-plum px-4 py-2.5 text-center text-[0.6875rem] tracking-[0.18em] text-champagne uppercase">
+                New clients welcome · Natural results · Medical-led care
+            </p>
+
+            <header className="sticky top-0 z-40 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
+                <div className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-6 px-4 sm:px-8 lg:px-12">
                     <Link
                         href={home().url}
                         className="press"
                         aria-label={`${clinic.name} home`}
                     >
-                        <Wordmark name={clinic.short_name} />
+                        <Wordmark />
                     </Link>
 
                     <nav
                         aria-label="Main"
-                        className="hidden items-center gap-8 text-sm text-white/80 lg:flex"
+                        className="hidden items-center gap-8 text-sm text-foreground/70 lg:flex"
                     >
                         {nav.map((item) => (
                             <Link
                                 key={item.label}
                                 href={item.href}
-                                className="transition-colors duration-150 hover:text-white"
+                                className="transition-colors duration-150 hover:text-rose-ink"
                             >
                                 {item.label}
                             </Link>
@@ -77,13 +87,13 @@ export default function SiteLayout({ children }: { children: ReactNode }) {
                     <div className="flex items-center gap-3">
                         <Link
                             href={login().url}
-                            className="hidden text-sm text-white/80 hover:text-white sm:inline"
+                            className="hidden text-sm text-foreground/70 hover:text-rose-ink sm:inline"
                         >
                             Patient login
                         </Link>
                         <Link
                             href={book().url}
-                            className="press hidden bg-gold px-5 py-2.5 text-sm font-medium text-ink hover:bg-white sm:inline-flex"
+                            className="press btn btn-solid hidden sm:inline-flex"
                         >
                             Book a consultation
                         </Link>
@@ -108,11 +118,11 @@ export default function SiteLayout({ children }: { children: ReactNode }) {
                     id="mobile-nav"
                     aria-label="Mobile"
                     className={cn(
-                        'fixed inset-x-0 top-20 bottom-0 bg-plum px-4 pt-6 pb-24 sm:px-8 lg:hidden',
+                        'fixed inset-x-0 top-20 bottom-0 bg-background px-4 pt-6 pb-24 sm:px-8 lg:hidden',
                         open ? 'block' : 'hidden',
                     )}
                 >
-                    <ul className="divide-y divide-white/10 border-y border-white/10">
+                    <ul className="divide-y divide-border border-y border-border">
                         {[
                             ...nav,
                             { label: 'Patient login', href: login().url },
@@ -230,120 +240,77 @@ function SiteFooter() {
     };
 
     return (
-        <footer className="on-dark bg-plum-deep pb-24 text-white/75 sm:pb-0">
-            <div className="grid gap-12 px-4 py-16 sm:px-8 lg:grid-cols-12 lg:px-12 lg:py-20">
-                <div className="lg:col-span-4">
-                    <Wordmark name={clinic.name} className="text-white" />
-                    <p className="mt-5 max-w-sm text-sm leading-relaxed">
-                        {clinic.tagline} Physician-led aesthetic and wellness
-                        care in Makati, BGC and Cebu.
-                    </p>
-                    <p className="mt-6 text-sm">
-                        <a
-                            href={`tel:${clinic.contact.phone.replace(/\s/g, '')}`}
-                            className="text-white hover:text-gold"
-                        >
-                            {clinic.contact.phone}
-                        </a>
-                        <br />
-                        <a
-                            href={`mailto:${clinic.contact.email}`}
-                            className="text-white hover:text-gold"
-                        >
-                            {clinic.contact.email}
-                        </a>
-                    </p>
-                </div>
+        <footer className="border-t border-border bg-soft-rose pb-24 sm:pb-0">
+            <div className="mx-auto max-w-7xl px-4 py-16 sm:px-8 lg:px-12 lg:py-20">
+                <div className="grid gap-10 lg:grid-cols-12 lg:gap-8">
+                    <div className="lg:col-span-4">
+                        <Wordmark markClassName="size-20" />
+                        <p className="mt-5 max-w-sm text-sm leading-relaxed text-foreground/70">
+                            {clinic.tagline} Physician-led aesthetic and wellness
+                            care in Makati, BGC and Cebu.
+                        </p>
+                        <p className="mt-6 text-sm">
+                            <a
+                                href={`tel:${clinic.contact.phone.replace(/\s/g, '')}`}
+                                className="text-foreground hover:text-rose-ink"
+                            >
+                                {clinic.contact.phone}
+                            </a>
+                            <br />
+                            <a
+                                href={`mailto:${clinic.contact.email}`}
+                                className="text-foreground hover:text-rose-ink"
+                            >
+                                {clinic.contact.email}
+                            </a>
+                        </p>
+                    </div>
 
-                <div className="grid grid-cols-2 gap-8 text-sm lg:col-span-4">
-                    <div>
-                        <h2 className="font-sans text-xs font-medium tracking-wide text-gold">
-                            Explore
-                        </h2>
-                        <ul className="mt-4 space-y-3">
-                            <li>
-                                <Link
-                                    href={treatments.index().url}
-                                    className="hover:text-white"
-                                >
-                                    Treatments
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    href={about().url}
-                                    className="hover:text-white"
-                                >
-                                    About
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    href={membership().url}
-                                    className="hover:text-white"
-                                >
-                                    Membership
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    href={promotions().url}
-                                    className="hover:text-white"
-                                >
-                                    Promotions
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    href={beforeAfter().url}
-                                    className="hover:text-white"
-                                >
-                                    Before and after
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    href={blog.index().url}
-                                    className="hover:text-white"
-                                >
-                                    Journal
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    href={contact().url}
-                                    className="hover:text-white"
-                                >
-                                    Contact
-                                </Link>
-                            </li>
-                        </ul>
+                    <div className="grid grid-cols-2 gap-8 text-sm lg:col-span-4">
+                        <div>
+                            <h2 className="eyebrow">Explore</h2>
+                            <ul className="mt-4 space-y-3">
+                                {[
+                                    ['Treatments', treatments.index().url],
+                                    ['About', about().url],
+                                    ['Membership', membership().url],
+                                    ['Promotions', promotions().url],
+                                    ['Before and after', beforeAfter().url],
+                                    ['Journal', blog.index().url],
+                                    ['Contact', contact().url],
+                                ].map(([label, href]) => (
+                                    <li key={label}>
+                                        <Link
+                                            href={href}
+                                            className="hover:text-rose-ink"
+                                        >
+                                            {label}
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                        <div>
+                            <h2 className="eyebrow">Clinics</h2>
+                            <ul className="mt-4 space-y-3">
+                                <li>Makati</li>
+                                <li>BGC, Taguig</li>
+                                <li>Cebu Business Park</li>
+                                <li>
+                                    <Link
+                                        href={`${home().url}#locations`}
+                                        className="hover:text-rose-ink"
+                                    >
+                                        Hours and directions
+                                    </Link>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                    <div>
-                        <h2 className="font-sans text-xs font-medium tracking-wide text-gold">
-                            Clinics
-                        </h2>
-                        <ul className="mt-4 space-y-3">
-                            <li>Makati</li>
-                            <li>BGC, Taguig</li>
-                            <li>Cebu Business Park</li>
-                            <li>
-                                <Link
-                                    href={`${home().url}#locations`}
-                                    className="hover:text-white"
-                                >
-                                    Hours and directions
-                                </Link>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
 
                 <form onSubmit={submit} className="lg:col-span-4">
-                    <h2 className="font-display text-xl text-white">
-                        Skin notes, once a month
-                    </h2>
-                    <p className="mt-2 text-sm">
+                    <h2 className="eyebrow">Skin notes, once a month</h2>
+                    <p className="mt-3 text-sm text-foreground/70">
                         Seasonal care tips and member offers. No spam,
                         unsubscribe anytime.
                     </p>
@@ -361,17 +328,17 @@ function SiteFooter() {
                                 form.setData('email', e.target.value)
                             }
                             placeholder="you@email.com"
-                            className="h-12 min-w-0 flex-1 border border-white/20 bg-white/5 px-4 text-white placeholder:text-white/40 focus:border-gold focus:outline-none"
+                            className="h-12 min-w-0 flex-1 border border-input bg-background px-4 text-sm placeholder:text-muted-foreground focus:border-rose-deep focus:outline-none"
                         />
                         <button
                             type="submit"
                             disabled={form.processing}
-                            className="press h-12 bg-gold px-5 text-sm font-medium text-ink hover:bg-white disabled:opacity-50"
+                            className="press btn btn-solid h-12 disabled:opacity-50"
                         >
                             Subscribe
                         </button>
                     </div>
-                    <label className="mt-3 flex items-start gap-2 text-xs">
+                    <label className="mt-3 flex items-start gap-2 text-xs text-foreground/70">
                         <input
                             type="checkbox"
                             required
@@ -390,14 +357,15 @@ function SiteFooter() {
                         </span>
                     </label>
                     {(form.errors.email || form.errors.privacy_consent) && (
-                        <p role="alert" className="mt-2 text-xs text-gold">
+                        <p role="alert" className="mt-2 text-xs text-rose-ink">
                             {form.errors.email ?? form.errors.privacy_consent}
                         </p>
                     )}
                 </form>
+                </div>
             </div>
 
-            <div className="flex flex-col gap-4 border-t border-white/10 px-4 py-6 text-xs sm:flex-row sm:items-center sm:justify-between sm:px-8 lg:px-12">
+            <div className="mx-auto flex max-w-7xl flex-col gap-4 border-t border-border px-4 py-6 text-xs text-foreground/60 sm:flex-row sm:items-center sm:justify-between sm:px-8 lg:px-12">
                 <p>
                     © {new Date().getFullYear()} {clinic.name}. A demonstration
                     clinic; names and people are fictional.
@@ -413,7 +381,7 @@ function SiteFooter() {
                         ['Sitemap', '/sitemap.xml'],
                     ].map(([label, href]) => (
                         <li key={label}>
-                            <Link href={href} className="hover:text-white">
+                            <Link href={href} className="hover:text-rose-ink">
                                 {label}
                             </Link>
                         </li>
@@ -427,7 +395,7 @@ function SiteFooter() {
                                     href={href}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-1.5 text-sm hover:text-white"
+                                    className="inline-flex items-center gap-1.5 text-sm hover:text-rose-ink"
                                 >
                                     <SocialIcon
                                         platform={platform}

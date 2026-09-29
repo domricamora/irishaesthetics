@@ -196,7 +196,7 @@ it('keeps the money off a screen for a role that should not see it', function ()
 });
 
 it('shows the money to somebody who runs the books', function () {
-    $owner = User::where('email', 'owner@patrice.test')->firstOrFail();
+    $owner = User::where('email', 'owner@irish.test')->firstOrFail();
 
     $this->actingAs($owner)
         ->get('/dashboard')
@@ -208,7 +208,7 @@ it('shows the money to somebody who runs the books', function () {
 });
 
 it('only draws the window the clinic asked for', function () {
-    $owner = User::where('email', 'owner@patrice.test')->firstOrFail();
+    $owner = User::where('email', 'owner@irish.test')->firstOrFail();
 
     $this->actingAs($owner)
         ->get('/dashboard?days=7')

@@ -3,6 +3,7 @@ export type Clinic = {
     short_name: string;
     tagline: string;
     logo: string;
+    logo_fallback: string;
     colors: Record<string, string>;
     contact: { address: string; phone: string; email: string };
     social: Record<'facebook' | 'instagram' | 'tiktok', string | null>;

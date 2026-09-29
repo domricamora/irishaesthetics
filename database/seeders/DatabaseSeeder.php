@@ -32,14 +32,14 @@ class DatabaseSeeder extends Seeder
             // branch should not have the demo name put back by a later seed.
             Branch::withoutGlobalScopes()->firstOrCreate(
                 ['organization_id' => $organization->id, 'slug' => $branch['slug']],
-                $branch + ['email' => $branch['slug'].'@patrice.test'],
+                $branch + ['email' => $branch['slug'].'@irish.test'],
             );
         }
 
         $users = [
-            ['admin@patrice.test', 'Clara Villanueva', null, 'Super Admin'],
-            ['owner@patrice.test', 'Isabel Montenegro', $organization->id, 'Organization Owner'],
-            ['reception@patrice.test', 'Joanna Dizon', $organization->id, 'Receptionist'],
+            ['admin@irish.test', 'Clara Villanueva', null, 'Super Admin'],
+            ['owner@irish.test', 'Isabel Montenegro', $organization->id, 'Organization Owner'],
+            ['reception@irish.test', 'Joanna Dizon', $organization->id, 'Receptionist'],
         ];
 
         foreach ($users as [$email, $name, $organizationId, $role]) {

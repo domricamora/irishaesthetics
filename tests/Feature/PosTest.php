@@ -16,7 +16,7 @@ beforeEach(function () {
 
 function till(): User
 {
-    return User::where('email', 'reception@patrice.test')->firstOrFail();
+    return User::where('email', 'reception@irish.test')->firstOrFail();
 }
 
 function facial(): Treatment
@@ -75,7 +75,7 @@ it('rings up a sale priced from the catalogue', function () {
         ->and($sale->balance)->toBe(0.0)
         ->and($sale->status)->toBe('paid')
         ->and($sale->client_name)->toBe('Ana Reyes')
-        ->and($sale->user->email)->toBe('reception@patrice.test')
+        ->and($sale->user->email)->toBe('reception@irish.test')
         ->and($sale->items)->toHaveCount(2)
         ->and($sale->payments)->toHaveCount(1)
         ->and($sale->payments->first()->method)->toBe('cash')

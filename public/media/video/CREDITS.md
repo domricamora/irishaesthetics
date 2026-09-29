@@ -1,8 +1,12 @@
 # Hero video credits
 
-Free stock footage from Mixkit (https://mixkit.co), used under the Mixkit Free Stock Video License.
-Trimmed to 8 seconds, audio removed, re-encoded for the web.
+Free stock footage from Pexels (https://www.pexels.com), used under the
+Pexels License. Clips are trimmed to 8 seconds, scaled to 1280x720, audio
+removed and re-encoded for the web. Every clip features an Asian model.
 
-- hero-40552.mp4: https://mixkit.co (asset 40552, eye makeup close-up)
-- hero-52144.mp4: https://mixkit.co (asset 52144, facial treatment with ultrasonic device)
-- hero-51172.mp4: https://mixkit.co (asset 51172, skincare routine)
+- hero-5308682.mp4: Anna Tarazevich, https://www.pexels.com/video/5308682/
+  (towel-wrap skincare, eyes closed)
+- hero-5308683.mp4: Anna Tarazevich, https://www.pexels.com/video/5308683/
+  (applying cream to the cheeks, same set as above)
+- hero-12322630.mp4: RDNE Stock project, https://www.pexels.com/video/12322630/
+  (headband and prep routine in a bright room)

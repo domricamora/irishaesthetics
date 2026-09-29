@@ -13,7 +13,7 @@ beforeEach(function () {
 
 function supervisor(): User
 {
-    return User::where('email', 'owner@patrice.test')->firstOrFail();
+    return User::where('email', 'owner@irish.test')->firstOrFail();
 }
 
 function clinicNurse(): Employee

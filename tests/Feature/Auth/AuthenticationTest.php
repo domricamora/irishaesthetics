@@ -56,7 +56,7 @@ class AuthenticationTest extends TestCase
         $this->app->instance('env', 'local');
 
         $response = $this->from(route('login'))->post(route('login.store'), [
-            'email' => 'admin@patrice.test',
+            'email' => 'admin@irish.test',
             'password' => 'password',
             '_token' => 'a-token-from-an-older-tab',
         ], [

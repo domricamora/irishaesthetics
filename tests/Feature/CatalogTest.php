@@ -18,12 +18,12 @@ beforeEach(function () {
 
 function boss(): User
 {
-    return User::where('email', 'owner@patrice.test')->firstOrFail();
+    return User::where('email', 'owner@irish.test')->firstOrFail();
 }
 
 function desk(): User
 {
-    return User::where('email', 'reception@patrice.test')->firstOrFail();
+    return User::where('email', 'reception@irish.test')->firstOrFail();
 }
 
 function shopItem(): Product
@@ -48,7 +48,7 @@ it('lists the catalogue and keeps it behind the permission', function () {
     $norole = User::create([
         'organization_id' => boss()->organization_id,
         'name' => 'No Role',
-        'email' => 'norole@patrice.test',
+        'email' => 'norole@irish.test',
         'password' => 'password',
     ]);
     $norole->syncRoles([]);

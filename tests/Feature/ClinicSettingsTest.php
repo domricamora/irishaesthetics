@@ -11,7 +11,7 @@ beforeEach(function () {
 
 function office(): User
 {
-    $user = User::where('email', 'owner@patrice.test')->firstOrFail();
+    $user = User::where('email', 'owner@irish.test')->firstOrFail();
 
     return $user;
 }
@@ -73,7 +73,7 @@ it('refuses a handle that would build a broken link', function () {
 });
 
 it('keeps the settings screen behind the settings permission', function () {
-    $desk = User::where('email', 'reception@patrice.test')->firstOrFail();
+    $desk = User::where('email', 'reception@irish.test')->firstOrFail();
 
     $this->actingAs($desk)->get(route('admin.settings.clinic.index'))->assertForbidden();
     $this->actingAs($desk)->patch(route('admin.settings.clinic.update'), [])->assertForbidden();

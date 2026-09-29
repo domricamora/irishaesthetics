@@ -41,7 +41,7 @@ export default function Membership({ tiers, branches, faqs }: Props) {
             <Head title="Membership">
                 <meta
                     name="description"
-                    content="Monthly membership tiers with treatment allowances, member pricing, priority booking and doctor reviews at Patrice clinics in Makati, BGC and Cebu."
+                    content="Monthly membership tiers with treatment allowances, member pricing, priority booking and doctor reviews at Irish clinics in Makati, BGC and Cebu."
                 />
             </Head>
 

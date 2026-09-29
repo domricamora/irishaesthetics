@@ -20,7 +20,7 @@ function visitorToken(): string
 
 function frontDesk(): User
 {
-    return User::where('email', 'reception@patrice.test')->firstOrFail();
+    return User::where('email', 'reception@irish.test')->firstOrFail();
 }
 
 it('says the chat is off until the office turns it on', function () {

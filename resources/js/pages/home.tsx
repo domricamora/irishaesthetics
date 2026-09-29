@@ -3,12 +3,15 @@ import {
     ArrowRight,
     BadgeCheck,
     CalendarCheck,
+    Check,
     ClipboardList,
     Cpu,
     Lock,
     Minus,
     Phone,
     Plus,
+    Sparkles,
+    WandSparkles,
 } from 'lucide-react';
 import type { CSSProperties, FormEvent } from 'react';
 import { useState } from 'react';
@@ -17,7 +20,7 @@ import BeforeAfter from '@/components/site/before-after';
 import HeroVideo from '@/components/site/hero-video';
 import { formatDuration, formatPrice, isOpenNow, useReveal } from '@/lib/site';
 import { cn } from '@/lib/utils';
-import { book } from '@/routes';
+import { book, contact } from '@/routes';
 import leads from '@/routes/leads';
 import treatmentRoutes from '@/routes/treatments';
 import type {
@@ -63,53 +66,86 @@ export default function Home({
                 />
             </Head>
 
-            {/* Hero: full-width film, the appointment card is the primary control. */}
-            <section className="on-dark relative isolate overflow-hidden bg-plum-deep text-white">
-                <HeroVideo />
-                <div
-                    aria-hidden="true"
-                    className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgb(42_11_61/0.92)_0%,rgb(42_11_61/0.7)_45%,rgb(42_11_61/0.35)_100%)]"
-                />
-                <div className="grid gap-10 px-4 pt-14 pb-16 sm:px-8 lg:min-h-[calc(100dvh-5rem)] lg:grid-cols-12 lg:items-center lg:gap-8 lg:px-12 lg:py-16">
-                    <div className="lg:col-span-7 xl:col-span-6">
-                        <h1 className="max-w-[13ch] text-[2.9rem] leading-[1.04] sm:text-6xl xl:text-[5.25rem]">
-                            Aesthetics that enhance your{' '}
-                            <em className="text-gold">natural beauty.</em>
+            {/*
+                Split hero: copy on the left, image on the right, per the
+                reference. This replaces the full-bleed video with a floating
+                booking card, because the reference puts the two side by side
+                rather than stacking them -- the film and the card were
+                competing for the same full-width attention.
+
+                The video is kept rather than dropped, but demoted to the right
+                column, where it becomes an ordinary editorial image instead of
+                the page's loudest element.
+            */}
+            <section className="relative overflow-hidden bg-background">
+                <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 pt-12 pb-14 sm:px-8 lg:grid-cols-2 lg:gap-16 lg:px-12 lg:pt-20 lg:pb-24">
+                    <div>
+                        <p className="eyebrow">Enhance. Refine. Empower.</p>
+                        <h1 className="mt-5 max-w-[14ch] text-[2.75rem] leading-[1.05] sm:text-6xl">
+                            Natural aesthetics.{' '}
+                            <em className="text-rose-ink">Confident you.</em>
                         </h1>
-                        <p className="mt-7 max-w-lg text-lg leading-relaxed text-lilac">
-                            Facials, injectables, body and makeup artistry,
-                            planned with a licensed physician and booked in
-                            under a minute.
+                        <p className="mt-6 max-w-md text-lg leading-relaxed text-foreground/70">
+                            Medical-led treatments tailored to your features,
+                            planned by a licensed physician and booked in under
+                            a minute.
                         </p>
-                        <div className="mt-9 flex flex-wrap gap-3">
-                            <Link
-                                href={book().url}
-                                className="press inline-flex h-13 items-center gap-2 bg-gold px-7 font-medium text-ink hover:bg-white"
-                            >
-                                Book a consultation{' '}
-                                <ArrowRight className="size-4" />
+                        <div className="mt-8 flex flex-wrap gap-3">
+                            <Link href={book().url} className="press btn btn-solid">
+                                Book a consultation
                             </Link>
                             <Link
                                 href={treatmentRoutes.index().url}
-                                className="press inline-flex h-13 items-center border border-white/40 px-7 font-medium backdrop-blur-sm hover:border-white"
+                                className="press btn btn-outline"
                             >
-                                Explore treatments
+                                Our treatments
                             </Link>
                         </div>
+
+                        {/* The three trust points the reference sets under the
+                            hero buttons, taken from the wider strip below so
+                            the promise is made before the scroll starts. */}
+                        <ul className="mt-10 grid gap-6 sm:grid-cols-3">
+                            {[
+                                [BadgeCheck, 'Medical-led care'],
+                                [ClipboardList, 'Personalised plans'],
+                                [Sparkles, 'Natural results'],
+                            ].map(([Icon, label]) => {
+                                const I = Icon as typeof BadgeCheck;
+
+                                return (
+                                    <li key={label as string} className="flex items-center gap-2.5">
+                                        <I
+                                            className="size-5 shrink-0 text-rose-ink"
+                                            aria-hidden="true"
+                                        />
+                                        <span className="text-xs font-medium tracking-[0.12em] uppercase">
+                                            {label as string}
+                                        </span>
+                                    </li>
+                                );
+                            })}
+                        </ul>
                     </div>
 
-                    <div className="w-full min-w-0 lg:col-span-5 lg:w-[25rem] lg:justify-self-end xl:col-span-4 xl:col-start-9">
-                        <AppointmentCard
-                            treatments={bookable}
-                            branches={branches}
-                        />
+                    <div className="relative min-h-[22rem] overflow-hidden bg-blush sm:min-h-[30rem] lg:min-h-[34rem]">
+                        <HeroVideo inset={false} />
+                        {/* The booking card, moved out of the hero's left
+                            column and set against the image edge, which is
+                            where the reference puts its own booking panel. */}
+                        <div className="absolute right-0 bottom-0 w-[min(100%,22rem)] p-4 sm:w-[22rem] sm:p-6">
+                            <AppointmentCard
+                                treatments={bookable}
+                                branches={branches}
+                            />
+                        </div>
                     </div>
                 </div>
             </section>
 
-            {/* Trust */}
+            {/* Why Irish */}
             <section
-                aria-label="Why patients trust us"
+                aria-label={`Why patients choose ${clinic.short_name}`}
                 className="border-b border-border bg-white"
             >
                 <ul className="grid grid-cols-2 divide-border px-4 sm:px-8 md:grid-cols-5 md:divide-x lg:px-12">
@@ -165,6 +201,55 @@ export default function Home({
                 </ul>
             </section>
 
+            {/*
+                "Our Signature Treatments": the reference's centred heading over
+                a row of circular line icons, each with a name and a line of
+                copy. It is a different job from the mosaic below -- that one
+                sells the specific treatments, this one says the clinic has a
+                shape and a method -- so both stay.
+            */}
+            <section className="border-b border-border bg-soft-rose px-4 py-20 sm:px-8 lg:px-12 lg:py-24">
+                <div className="mx-auto max-w-7xl">
+                    <h2 data-reveal className="text-center text-3xl sm:text-4xl">
+                        Our <em className="text-rose-ink">Signature</em>{' '}
+                        Treatments
+                    </h2>
+
+                    <ul className="mt-14 grid gap-10 text-center sm:grid-cols-2 lg:grid-cols-5">
+                        {categories.slice(0, 5).map((c, i) => (
+                            <li
+                                key={c.id}
+                                data-reveal
+                                style={stagger(i)}
+                                className="flex flex-col items-center"
+                            >
+                                <span
+                                    aria-hidden="true"
+                                    className="flex size-16 items-center justify-center rounded-full border border-rose-deep/30 text-rose-ink"
+                                >
+                                    <WandSparkles className="size-6" />
+                                </span>
+                                <h3 className="mt-5 text-sm font-semibold tracking-[0.14em] uppercase">
+                                    {c.name}
+                                </h3>
+                                <p className="mt-2 max-w-[22ch] text-sm text-muted-foreground">
+                                    {c.description}
+                                </p>
+                            </li>
+                        ))}
+                    </ul>
+
+                    <div className="mt-14 text-center">
+                        <Link
+                            href={treatmentRoutes.index().url}
+                            className="press btn btn-outline"
+                        >
+                            View all treatments
+                        </Link>
+                    </div>
+                </div>
+            </section>
+
             {/* Featured treatments */}
             <section className="px-4 py-20 sm:px-8 lg:px-12 lg:py-28">
                 <div className="flex flex-wrap items-end justify-between gap-6">
@@ -211,7 +296,7 @@ export default function Home({
                                     )}
                                     <span
                                         aria-hidden="true"
-                                        className="absolute inset-0 bg-[linear-gradient(to_top,rgb(42_11_61/0.88)_0%,rgb(42_11_61/0.35)_45%,rgb(42_11_61/0)_75%)]"
+                                        className="absolute inset-0 bg-[linear-gradient(to_top,rgb(59_36_48/0.88)_0%,rgb(59_36_48/0.35)_45%,rgb(59_36_48/0)_75%)]"
                                     />
                                     <span
                                         aria-hidden="true"
@@ -270,209 +355,9 @@ export default function Home({
                 </div>
             </section>
 
-            {/* Categories index */}
-            <section className="bg-mist px-4 py-20 sm:px-8 lg:px-12 lg:py-24">
-                <div className="grid gap-10 lg:grid-cols-12">
-                    <div className="lg:col-span-4">
-                        <h2 data-reveal className="text-4xl">
-                            Care for face, body, hair and wellbeing
-                        </h2>
-                        <p className="mt-4 max-w-sm text-muted-foreground">
-                            Not sure what you need? Start with a consultation
-                            and your doctor will build the plan with you.
-                        </p>
-                    </div>
-                    <ul className="divide-y divide-plum/15 border-y border-plum/15 lg:col-span-8">
-                        {categories.map((c, i) => (
-                            <li key={c.id} data-reveal style={stagger(i)}>
-                                <Link
-                                    href={`${treatmentRoutes.index().url}#${c.slug}`}
-                                    className="group grid grid-cols-[1fr_auto] items-center gap-6 py-6 sm:grid-cols-[14rem_1fr_auto]"
-                                >
-                                    <span className="font-display text-2xl font-semibold group-hover:text-plum">
-                                        {c.name}
-                                    </span>
-                                    <span className="hidden text-sm text-muted-foreground sm:block">
-                                        {c.description}
-                                    </span>
-                                    <span className="numerals flex items-center gap-3 text-sm text-muted-foreground">
-                                        {c.treatments_count} treatments
-                                        <ArrowRight className="size-4 text-plum transition-transform duration-200 ease-out group-hover:translate-x-1" />
-                                    </span>
-                                </Link>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            </section>
-
-            {/* Why */}
-            <section className="grid lg:grid-cols-2">
-                <img
-                    src={media('consultation.jpg')}
-                    alt="A doctor writing notes during a patient consultation"
-                    loading="lazy"
-                    className="h-72 w-full object-cover sm:h-96 lg:h-full"
-                />
-                <div className="px-4 py-20 sm:px-8 lg:px-16 lg:py-28">
-                    <h2 data-reveal className="max-w-lg text-4xl sm:text-5xl">
-                        Why patients choose {clinic.short_name}
-                    </h2>
-                    <dl className="mt-10 divide-y divide-border border-y border-border">
-                        {[
-                            [
-                                'A doctor sees you first',
-                                'Every new plan starts with a physician consultation, not a sales pitch.',
-                            ],
-                            [
-                                'Honest about results',
-                                'We explain what is realistic, how many sessions it usually takes, and the possible side effects.',
-                            ],
-                            [
-                                'Follow-up is part of the price',
-                                'Aftercare instructions in writing and a check-in after every treatment.',
-                            ],
-                            [
-                                'Your records stay private',
-                                'Clinical notes and photos are only seen by your care team, and never used in marketing without your consent.',
-                            ],
-                        ].map(([title, text], i) => (
-                            <div
-                                key={title}
-                                data-reveal
-                                style={stagger(i)}
-                                className="py-6"
-                            >
-                                <dt className="text-lg font-semibold">
-                                    {title}
-                                </dt>
-                                <dd className="mt-1 text-muted-foreground">
-                                    {text}
-                                </dd>
-                            </div>
-                        ))}
-                    </dl>
-                </div>
-            </section>
-
-            {/* Before and after */}
-            <section className="bg-white px-4 py-20 sm:px-8 lg:px-12 lg:py-28">
-                <div className="grid items-center gap-12 lg:grid-cols-12">
-                    <div className="lg:col-span-5">
-                        <h2 data-reveal className="text-4xl sm:text-5xl">
-                            See the difference a plan makes
-                        </h2>
-                        <p className="mt-5 max-w-md text-muted-foreground">
-                            Drag the handle to compare. Real before and after
-                            photos are only shared with written consent from the
-                            patient, and you will see relevant cases during your
-                            consultation.
-                        </p>
-                        <p className="mt-4 max-w-md text-sm text-muted-foreground">
-                            Results vary from person to person. Your doctor will
-                            talk you through what to expect for your skin.
-                        </p>
-                    </div>
-                    <div className="lg:col-span-7">
-                        <BeforeAfter
-                            src={media('booster.jpg')}
-                            alt="Portrait used to illustrate skin texture before and after a hydration treatment"
-                        />
-                    </div>
-                </div>
-            </section>
-
-            {/* Specialists */}
+            {/* Signature packages */}
             <section
-                id="specialists"
-                className="scroll-mt-20 bg-mist px-4 py-20 sm:px-8 lg:px-12 lg:py-28"
-            >
-                <h2 data-reveal className="max-w-2xl text-4xl sm:text-5xl">
-                    The physicians behind your plan
-                </h2>
-                <div className="mt-12 grid gap-10 md:grid-cols-3">
-                    {specialists.map((s, i) => (
-                        <article key={s.id} data-reveal style={stagger(i)}>
-                            <div className="aspect-[4/5] overflow-hidden bg-lilac">
-                                {s.photo && (
-                                    <img
-                                        src={s.photo}
-                                        alt={`Portrait of ${s.name}`}
-                                        loading="lazy"
-                                        className="h-full w-full object-cover object-top"
-                                    />
-                                )}
-                            </div>
-                            <h3 className="mt-5 text-2xl">{s.name}</h3>
-                            <p className="text-sm text-plum">{s.title}</p>
-                            <p className="mt-1 text-xs text-muted-foreground">
-                                {s.credentials}
-                            </p>
-                            <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-                                {s.bio}
-                            </p>
-                            <p className="mt-4 text-xs text-muted-foreground">
-                                {s.focus?.join(' · ')}
-                                <br />
-                                Sees patients in {s.branches?.join(' and ')}
-                            </p>
-                        </article>
-                    ))}
-                </div>
-            </section>
-
-            {/* Technology and follow-up */}
-            <section className="on-dark grid bg-plum-deep text-white lg:grid-cols-2">
-                <div className="px-4 py-20 sm:px-8 lg:px-12 lg:py-28">
-                    <h2 data-reveal className="max-w-lg text-4xl sm:text-5xl">
-                        Technology that works for you, before and after the
-                        visit
-                    </h2>
-                    <ul className="mt-10 grid gap-8 sm:grid-cols-2">
-                        {[
-                            [
-                                'Book in a minute',
-                                'Live availability for every branch and doctor, confirmed by SMS and email.',
-                            ],
-                            [
-                                'Reminders that help',
-                                'A reminder the day before, with preparation notes for your treatment.',
-                            ],
-                            [
-                                'Aftercare in writing',
-                                'Your instructions arrive after each session, so nothing is forgotten.',
-                            ],
-                            [
-                                'Records under lock',
-                                'Consent forms and clinical photos stored privately, with every access logged.',
-                            ],
-                        ].map(([title, text], i) => (
-                            <li
-                                key={title}
-                                data-reveal
-                                style={stagger(i)}
-                                className="border-t border-white/15 pt-5"
-                            >
-                                <p className="font-semibold text-gold">
-                                    {title}
-                                </p>
-                                <p className="mt-2 text-sm text-lilac/85">
-                                    {text}
-                                </p>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-                <img
-                    src={media('laser.jpg')}
-                    alt="A practitioner using a handheld laser device during a treatment"
-                    loading="lazy"
-                    className="h-80 w-full object-cover lg:h-full"
-                />
-            </section>
-
-            {/* Membership */}
-            <section
+                aria-label="Membership packages"
                 id="membership"
                 className="scroll-mt-20 px-4 py-20 sm:px-8 lg:px-12 lg:py-28"
             >
@@ -580,7 +465,149 @@ export default function Home({
                 </div>
             </section>
 
-            {/* Testimonials */}
+            {/*
+                About, in the reference's three columns: the clinic photograph,
+                the argument, then a booking panel standing on its own. The
+                panel used to be the hero's appointment card; moving it here
+                leaves the hero to make one job -- say what this is -- and gives
+                the booking step a place where the reader has just been given
+                reasons to want it.
+            */}
+            <section className="border-y border-border bg-soft-rose">
+                <div className="mx-auto grid max-w-7xl gap-10 px-4 py-20 sm:px-8 lg:grid-cols-3 lg:gap-8 lg:px-12 lg:py-24">
+                    <img
+                        src={media('clinic-interior.jpg')}
+                        alt="A treatment room at the clinic, prepared before a patient arrives"
+                        loading="lazy"
+                        className="h-64 w-full object-cover sm:h-80 lg:h-full"
+                    />
+
+                    <div>
+                        <p className="eyebrow">About {clinic.short_name}</p>
+                        <h2 data-reveal className="mt-4 text-3xl sm:text-4xl">
+                            Experienced. Trusted.{' '}
+                            <em className="text-rose-ink">Here for you.</em>
+                        </h2>
+                        <p className="mt-5 text-muted-foreground">
+                            {clinic.short_name} is a physician-led aesthetics
+                            practice. Every plan is agreed with you in writing
+                            before anything begins, and every result discussed
+                            in terms you can hold onto.
+                        </p>
+                        <ul className="mt-7 space-y-3">
+                            {[
+                                'Physician-led, every treatment',
+                                'Written plans you keep',
+                                'Medical-grade products only',
+                            ].map((item) => (
+                                <li key={item} className="flex items-start gap-3">
+                                    <Check
+                                        className="mt-0.5 size-5 shrink-0 text-rose-ink"
+                                        aria-hidden="true"
+                                    />
+                                    <span className="text-sm">{item}</span>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    <aside className="flex flex-col justify-center border border-border bg-background p-8">
+                        <CalendarCheck
+                            className="size-8 text-rose-ink"
+                            aria-hidden="true"
+                        />
+                        <h3 className="mt-5 text-xl font-semibold tracking-tight">
+                            Book your consultation
+                        </h3>
+                        <p className="mt-3 text-sm text-muted-foreground">
+                            Start with a short assessment. Nothing is charged
+                            until you have seen the plan and decided.
+                        </p>
+                        <Link
+                            href={book().url}
+                            className="press btn btn-solid mt-7 w-full"
+                        >
+                            Book now
+                        </Link>
+                    </aside>
+                </div>
+            </section>
+
+            {/*
+                The reference's closing row of four editorial cards, each a
+                photograph with a title, a line of copy and a link. These are
+                the four questions a first-time visitor actually arrives with,
+                which is why they are given equal weight rather than being
+                folded into the sections above.
+            */}
+            <section className="px-4 py-20 sm:px-8 lg:px-12 lg:py-24">
+                <ul className="mx-auto grid max-w-7xl gap-2 sm:grid-cols-2 lg:grid-cols-4">
+                    {[
+                        {
+                            image: 'consultation.jpg',
+                            alt: 'A doctor taking notes while a patient talks',
+                            title: 'Your consultation',
+                            text: 'Every journey starts with a personalised assessment.',
+                            href: book().url,
+                            cta: 'Learn more',
+                        },
+                        {
+                            image: 'facial.jpg',
+                            alt: 'A facial treatment being carried out',
+                            title: 'Premium products',
+                            text: 'Trusted, medical-grade products for safe, beautiful results.',
+                            href: treatmentRoutes.index().url,
+                            cta: 'Learn more',
+                        },
+                        {
+                            image: 'reception.jpg',
+                            alt: 'The clinic reception desk',
+                            title: 'Aftercare matters',
+                            text: 'Follow the aftercare guide for the best possible results.',
+                            href: treatmentRoutes.index().url,
+                            cta: 'Learn more',
+                        },
+                        {
+                            image: 'makati.jpg',
+                            alt: 'The street entrance to the Makati clinic',
+                            title: 'Visit the clinic',
+                            text: `${clinic.short_name}, ${clinic.contact.address}.`,
+                            href: contact().url,
+                            cta: 'Get directions',
+                        },
+                    ].map((card, i) => (
+                        <li
+                            key={card.title}
+                            data-reveal
+                            style={stagger(i)}
+                            className="group flex flex-col bg-blush"
+                        >
+                            <img
+                                src={media(card.image)}
+                                alt={card.alt}
+                                loading="lazy"
+                                className="h-44 w-full object-cover"
+                            />
+                            <div className="flex flex-1 flex-col p-6">
+                                <h3 className="text-sm font-semibold tracking-[0.14em] uppercase">
+                                    {card.title}
+                                </h3>
+                                <p className="mt-3 text-sm text-muted-foreground">
+                                    {card.text}
+                                </p>
+                                <Link
+                                    href={card.href}
+                                    className="press btn btn-outline mt-6 self-start"
+                                >
+                                    {card.cta}
+                                </Link>
+                            </div>
+                        </li>
+                    ))}
+                </ul>
+            </section>
+
+            {/* Client reviews */}
             <section className="bg-mist px-4 py-20 sm:px-8 lg:px-12 lg:py-28">
                 <h2 data-reveal className="max-w-2xl text-4xl sm:text-5xl">
                     In our patients’ words
@@ -615,6 +642,161 @@ export default function Home({
                         </figure>
                     ))}
                 </div>
+            </section>
+
+            {/* Beauty gallery */}
+            <section className="bg-white px-4 py-20 sm:px-8 lg:px-12 lg:py-28">
+                <div className="grid items-center gap-12 lg:grid-cols-12">
+                    <div className="lg:col-span-5">
+                        <h2 data-reveal className="text-4xl sm:text-5xl">
+                            See the difference a plan makes
+                        </h2>
+                        <p className="mt-5 max-w-md text-muted-foreground">
+                            Drag the handle to compare. Real before and after
+                            photos are only shared with written consent from the
+                            patient, and you will see relevant cases during your
+                            consultation.
+                        </p>
+                        <p className="mt-4 max-w-md text-sm text-muted-foreground">
+                            Results vary from person to person. Your doctor will
+                            talk you through what to expect for your skin.
+                        </p>
+                    </div>
+                    <div className="lg:col-span-7">
+                        <BeforeAfter
+                            src={media('booster.jpg')}
+                            alt="Portrait used to illustrate skin texture before and after a hydration treatment"
+                        />
+                    </div>
+                </div>
+            </section>
+
+            {/* Ready to glow? */}
+            <EnquiryBand treatments={bookable} />
+
+            {/* Categories index */}
+            <section className="bg-mist px-4 py-20 sm:px-8 lg:px-12 lg:py-24">
+                <div className="grid gap-10 lg:grid-cols-12">
+                    <div className="lg:col-span-4">
+                        <h2 data-reveal className="text-4xl">
+                            Care for face, body, hair and wellbeing
+                        </h2>
+                        <p className="mt-4 max-w-sm text-muted-foreground">
+                            Not sure what you need? Start with a consultation
+                            and your doctor will build the plan with you.
+                        </p>
+                    </div>
+                    <ul className="divide-y divide-plum/15 border-y border-plum/15 lg:col-span-8">
+                        {categories.map((c, i) => (
+                            <li key={c.id} data-reveal style={stagger(i)}>
+                                <Link
+                                    href={`${treatmentRoutes.index().url}#${c.slug}`}
+                                    className="group grid grid-cols-[1fr_auto] items-center gap-6 py-6 sm:grid-cols-[14rem_1fr_auto]"
+                                >
+                                    <span className="font-display text-2xl font-semibold group-hover:text-plum">
+                                        {c.name}
+                                    </span>
+                                    <span className="hidden text-sm text-muted-foreground sm:block">
+                                        {c.description}
+                                    </span>
+                                    <span className="numerals flex items-center gap-3 text-sm text-muted-foreground">
+                                        {c.treatments_count} treatments
+                                        <ArrowRight className="size-4 text-plum transition-transform duration-200 ease-out group-hover:translate-x-1" />
+                                    </span>
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            </section>
+
+            {/* Specialists */}
+            <section
+                id="specialists"
+                className="scroll-mt-20 bg-mist px-4 py-20 sm:px-8 lg:px-12 lg:py-28"
+            >
+                <h2 data-reveal className="max-w-2xl text-4xl sm:text-5xl">
+                    The physicians behind your plan
+                </h2>
+                <div className="mt-12 grid gap-10 md:grid-cols-3">
+                    {specialists.map((s, i) => (
+                        <article key={s.id} data-reveal style={stagger(i)}>
+                            <div className="aspect-[4/5] overflow-hidden bg-lilac">
+                                {s.photo && (
+                                    <img
+                                        src={s.photo}
+                                        alt={`Portrait of ${s.name}`}
+                                        loading="lazy"
+                                        className="h-full w-full object-cover object-top"
+                                    />
+                                )}
+                            </div>
+                            <h3 className="mt-5 text-2xl">{s.name}</h3>
+                            <p className="text-sm text-plum">{s.title}</p>
+                            <p className="mt-1 text-xs text-muted-foreground">
+                                {s.credentials}
+                            </p>
+                            <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+                                {s.bio}
+                            </p>
+                            <p className="mt-4 text-xs text-muted-foreground">
+                                {s.focus?.join(' · ')}
+                                <br />
+                                Sees patients in {s.branches?.join(' and ')}
+                            </p>
+                        </article>
+                    ))}
+                </div>
+            </section>
+
+            {/* Technology and follow-up */}
+            <section className="on-dark grid bg-plum-deep text-white lg:grid-cols-2">
+                <div className="px-4 py-20 sm:px-8 lg:px-12 lg:py-28">
+                    <h2 data-reveal className="max-w-lg text-4xl sm:text-5xl">
+                        Technology that works for you, before and after the
+                        visit
+                    </h2>
+                    <ul className="mt-10 grid gap-8 sm:grid-cols-2">
+                        {[
+                            [
+                                'Book in a minute',
+                                'Live availability for every branch and doctor, confirmed by SMS and email.',
+                            ],
+                            [
+                                'Reminders that help',
+                                'A reminder the day before, with preparation notes for your treatment.',
+                            ],
+                            [
+                                'Aftercare in writing',
+                                'Your instructions arrive after each session, so nothing is forgotten.',
+                            ],
+                            [
+                                'Records under lock',
+                                'Consent forms and clinical photos stored privately, with every access logged.',
+                            ],
+                        ].map(([title, text], i) => (
+                            <li
+                                key={title}
+                                data-reveal
+                                style={stagger(i)}
+                                className="border-t border-white/15 pt-5"
+                            >
+                                <p className="font-semibold text-gold">
+                                    {title}
+                                </p>
+                                <p className="mt-2 text-sm text-lilac/85">
+                                    {text}
+                                </p>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+                <img
+                    src={media('laser.jpg')}
+                    alt="A practitioner using a handheld laser device during a treatment"
+                    loading="lazy"
+                    className="h-80 w-full object-cover lg:h-full"
+                />
             </section>
 
             {/* Locations */}
@@ -726,8 +908,6 @@ export default function Home({
                     </div>
                 </div>
             </section>
-
-            <EnquiryBand treatments={bookable} />
         </>
     );
 }
@@ -798,9 +978,7 @@ function EnquiryBand({ treatments }: { treatments: Treatment[] }) {
         >
             <div className="grid gap-12 px-4 py-20 sm:px-8 lg:grid-cols-12 lg:px-12 lg:py-28">
                 <div className="lg:col-span-5">
-                    <h2 className="text-4xl sm:text-5xl">
-                        Not sure where to start?
-                    </h2>
+                    <h2 className="text-4xl sm:text-5xl">Ready to glow?</h2>
                     <p className="mt-5 max-w-md text-lg text-lilac">
                         Tell us what you would like to change. A patient
                         coordinator will reply within one business day with a

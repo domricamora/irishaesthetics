@@ -27,7 +27,7 @@ export default function Promotions({ promotions, tiers }: Props) {
             <Head title="Promotions and packages">
                 <meta
                     name="description"
-                    content="Current Patrice offers: series pricing, packages and first visit credits, each with what is included and when it ends."
+                    content="Current Irish offers: series pricing, packages and first visit credits, each with what is included and when it ends."
                 />
             </Head>
 

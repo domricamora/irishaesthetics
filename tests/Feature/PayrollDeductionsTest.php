@@ -15,7 +15,7 @@ beforeEach(function () {
 
 function clerk(): User
 {
-    return User::where('email', 'owner@patrice.test')->firstOrFail();
+    return User::where('email', 'owner@irish.test')->firstOrFail();
 }
 
 function theNurse(): Employee
@@ -366,7 +366,7 @@ it('shows the deductions on the pay run and on the person', function () {
 });
 
 it('keeps the books to staff with the permission', function () {
-    $reception = User::where('email', 'reception@patrice.test')->firstOrFail();
+    $reception = User::where('email', 'reception@irish.test')->firstOrFail();
 
     $this->actingAs($reception)->get('/admin/payroll/settings')->assertForbidden();
     $this->actingAs($reception)

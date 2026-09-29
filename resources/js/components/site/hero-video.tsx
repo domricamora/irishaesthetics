@@ -2,13 +2,26 @@ import { usePage } from '@inertiajs/react';
 import { useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
 
-const CLIPS = ['hero-40552', 'hero-52144', 'hero-51172'];
+const CLIPS = ['hero-5308682', 'hero-5308683', 'hero-12322630'];
 
 /**
- * Full-bleed background film: short muted clips that crossfade in turn.
- * Reduced-motion visitors get the still poster of the first clip.
+ * Short muted clips that crossfade in turn, filling whatever box they are put
+ * in. Reduced-motion visitors get the still poster of the first clip.
+ *
+ * `inset` decides how the component takes up space. Left true it is a
+ * full-bleed background, absolutely positioned behind its section, which is
+ * how the hero used to work. Set false it simply fills its parent, which is
+ * what the split hero needs now that the film is an ordinary image in a
+ * column rather than the page's backdrop. Callers that pass false must give
+ * the parent a height.
  */
-export default function HeroVideo() {
+export default function HeroVideo({
+    inset = true,
+    className,
+}: {
+    inset?: boolean;
+    className?: string;
+}) {
     const { mediaUrl } = usePage().props;
     const base = mediaUrl.replace(/photos$/, 'video');
     const [active, setActive] = useState(0);
@@ -33,7 +46,10 @@ export default function HeroVideo() {
     }, [active, still]);
 
     return (
-        <div aria-hidden="true" className="absolute inset-0 -z-20">
+        <div
+            aria-hidden="true"
+            className={cn(inset ? 'absolute inset-0 -z-20' : 'h-full w-full', className)}
+        >
             {still ? (
                 <img
                     src={`${base}/${CLIPS[0]}.jpg`}

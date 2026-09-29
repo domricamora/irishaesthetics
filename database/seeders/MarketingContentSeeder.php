@@ -67,7 +67,7 @@ class MarketingContentSeeder extends Seeder
         'first-visit-consultation' => [
             'First visit consultation credited',
             'New here? The doctor consultation fee is credited to your first treatment.',
-            'Every treatment at Patrice starts with a short assessment, so you know what is being recommended and why before you commit. On a first visit we credit the consultation fee against your first treatment booked within 30 days.',
+            'Every treatment at Irish starts with a short assessment, so you know what is being recommended and why before you commit. On a first visit we credit the consultation fee against your first treatment booked within 30 days.',
             [
                 'Consultation fee of 1,500 pesos credited to your first treatment',
                 'Includes a skin assessment and a written plan you keep',
@@ -143,7 +143,7 @@ class MarketingContentSeeder extends Seeder
         'what-happens-in-a-consultation' => [
             'What happens in a consultation',
             'Clinic news',
-            'A first visit at Patrice is an assessment, not a sales conversation. Here is how the forty minutes are spent.',
+            'A first visit at Irish is an assessment, not a sales conversation. Here is how the forty minutes are spent.',
             "We start with what brought you in. Your practitioner asks about your concerns, how long you have had them, what you have tried and what you did not like about it. History matters: medicines, allergies, pregnancy or breastfeeding, recent treatments elsewhere, and any skin or health condition that changes what is safe.\n\nNext comes the assessment. Your skin is examined under good light, sometimes with a lamp or a camera, and your practitioner explains what they see in plain language. You are welcome to photograph anything you want to remember.\n\nThen the plan. Where a treatment is appropriate, you receive the options with prices, the number of sessions, realistic downtime and what aftercare involves. Where we think a treatment is not in your interest, we say so, and where a referral is more appropriate we will help you find one.\n\nThe consultation fee is 1,500 pesos, and on a first visit it is credited against your first treatment booked within 30 days.",
             [
                 'Assessment first, treatment second',
@@ -221,11 +221,11 @@ class MarketingContentSeeder extends Seeder
     public const PAGES = [
         'privacy-policy' => [
             'Privacy Policy',
-            'How Patrice Beauty Lounge Aesthetics collects, uses, stores and protects personal information, in line with the Data Privacy Act of 2012 (Republic Act 10173).',
+            'How Irish Aesthetics and Beauty Lounge collects, uses, stores and protects personal information, in line with the Data Privacy Act of 2012 (Republic Act 10173).',
             0,
             [
                 ['heading' => 'Who we are', 'paragraphs' => [
-                    'Patrice Beauty Lounge Aesthetics operates aesthetic and wellness clinics in Makati, BGC and Cebu. We are the personal information controller for the information described in this policy.',
+                    'Irish Aesthetics and Beauty Lounge operates aesthetic and wellness clinics in Makati, BGC and Cebu. We are the personal information controller for the information described in this policy.',
                     'Questions about privacy, or a request to exercise your rights, can be sent to the clinic email address on our contact page or raised at the branch where you are treated. We aim to respond within fifteen working days.',
                 ]],
                 ['heading' => 'What we collect', 'paragraphs' => [
@@ -275,7 +275,7 @@ class MarketingContentSeeder extends Seeder
         ],
         'terms' => [
             'Terms of Service',
-            'The terms that apply when you use this website, book an appointment with Patrice Beauty Lounge Aesthetics, or hold a membership.',
+            'The terms that apply when you use this website, book an appointment with Irish Aesthetics and Beauty Lounge, or hold a membership.',
             0,
             [
                 ['heading' => 'Using this website', 'paragraphs' => [

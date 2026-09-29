@@ -110,7 +110,7 @@ it('never changes the password of an account that already exists', function () {
     // must survive.
     $this->post(route('admin.setup.store'));
 
-    $demo = User::where('email', 'owner@patrice.test')->firstOrFail();
+    $demo = User::where('email', 'owner@irish.test')->firstOrFail();
     $demo->forceFill(['password' => Hash::make('something-else-entirely')])->save();
 
     $this->post(route('admin.setup.store'));
@@ -128,7 +128,7 @@ it('gives a new demo account the demo password', function () {
 
     $this->post(route('admin.setup.store'));
 
-    expect(Hash::check('password', User::where('email', 'owner@patrice.test')->firstOrFail()->password))
+    expect(Hash::check('password', User::where('email', 'owner@irish.test')->firstOrFail()->password))
         ->toBeTrue();
 });
 

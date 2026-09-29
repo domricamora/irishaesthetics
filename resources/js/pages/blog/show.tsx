@@ -107,8 +107,8 @@ export default function BlogShow({ post, related }: Props) {
                             </h2>
                             <p className="mt-3 text-lg">{post.author_name}</p>
                             <p className="mt-2 text-sm text-muted-foreground">
-                                Practitioner at Patrice Beauty Lounge
-                                Aesthetics. A fictional profile in this
+                                Practitioner at Irish Aesthetics and
+                                Beauty Lounge. A fictional profile in this
                                 demonstration clinic.
                             </p>
                             <Link

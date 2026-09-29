@@ -33,11 +33,10 @@
     },
     "botox": {
         "file": "botox.jpg",
-        "photographer": "karelys Ruiz",
-        "profile": "https://unsplash.com/@karelysruiz",
-        "source": "https://unsplash.com/photos/woman-receiving-facial-skincare-treatment-PqyzuzFiQfY",
-        "alt": "woman receiving facial skincare treatment",
-        "license": "Unsplash License"
+        "photographer": "cottonbro studio",
+        "source": "https://www.pexels.com/photo/7580254/",
+        "alt": "Doctor in a white coat preparing a syringe during a consultation",
+        "license": "Pexels License"
     },
     "bridal": {
         "file": "bridal.jpg",
@@ -73,27 +72,24 @@
     },
     "doctor-adrian": {
         "file": "doctor-adrian.jpg",
-        "photographer": "Usman Yousaf",
-        "profile": "https://unsplash.com/@usmanyousaf",
-        "source": "https://unsplash.com/photos/man-in-purple-dress-shirt-wearing-black-framed-eyeglasses-tPxS-1IPZAo",
-        "alt": "man in purple dress shirt wearing black framed eyeglasses",
-        "license": "Unsplash License"
+        "photographer": "Tran Nhu Tuan",
+        "source": "https://www.pexels.com/photo/27666717/",
+        "alt": "Doctor in green scrubs with a stethoscope, arms folded",
+        "license": "Pexels License"
     },
     "doctor-maya": {
         "file": "doctor-maya.jpg",
-        "photographer": "Ocho Artex Media",
-        "profile": "https://unsplash.com/@ochoartex",
-        "source": "https://unsplash.com/photos/woman-in-teal-medical-scrubs-rm7rZYdl3rY",
-        "alt": "A woman with dark curly hair wearing teal medical scrubs with arms crossed",
-        "license": "Unsplash License"
+        "photographer": "Tran Nhu Tuan",
+        "source": "https://www.pexels.com/photo/15962796/",
+        "alt": "Doctor in a white coat over navy scrubs, smiling",
+        "license": "Pexels License"
     },
     "doctor-sofia": {
         "file": "doctor-sofia.jpg",
-        "photographer": "Siednji Leon",
-        "profile": "https://unsplash.com/@siednji",
-        "source": "https://unsplash.com/photos/smiling-woman-in-white-long-sleeve-shirt-with-stethoscope-on-her-neck-lnlSIsiSjjc",
-        "alt": "smiling woman in white long sleeve shirt with stethoscope on her neck",
-        "license": "Unsplash License"
+        "photographer": "Tima Miroshnichenko",
+        "source": "https://www.pexels.com/photo/8376317/",
+        "alt": "Doctor in a white coat with a stethoscope looking down at a patient",
+        "license": "Pexels License"
     },
     "facial": {
         "file": "facial.jpg",
@@ -105,11 +101,10 @@
     },
     "fillers": {
         "file": "fillers.jpg",
-        "photographer": "Cesar La Rosa",
-        "profile": "https://unsplash.com/@obcesar",
-        "source": "https://unsplash.com/photos/woman-wearing-red-lipstick-sGZwj1Nmq8s",
-        "alt": "woman wearing red lipstick",
-        "license": "Unsplash License"
+        "photographer": "Iván Cauich",
+        "source": "https://www.pexels.com/photo/25711096/",
+        "alt": "Woman with eyes closed and red lipstick in soft daylight",
+        "license": "Pexels License"
     },
     "hair": {
         "file": "hair.jpg",
@@ -129,11 +124,10 @@
     },
     "hydrafacial": {
         "file": "hydrafacial.jpg",
-        "photographer": "Look Studio",
-        "profile": "https://unsplash.com/@lookphoto",
-        "source": "https://unsplash.com/photos/a-woman-getting-a-facial-peel-from-a-doctor-HtXyytr9304",
-        "alt": "a woman getting a facial peel from a doctor",
-        "license": "Unsplash License"
+        "photographer": "Andrea Piacquadio",
+        "source": "https://www.pexels.com/photo/3760270/",
+        "alt": "Client lying on a treatment bed while a practitioner works on her face",
+        "license": "Pexels License"
     },
     "iv": {
         "file": "iv.jpg",
@@ -177,11 +171,10 @@
     },
     "peel": {
         "file": "peel.jpg",
-        "photographer": "engin akyurt",
-        "profile": "https://unsplash.com/@enginakyurt",
-        "source": "https://unsplash.com/photos/woman-lying-on-blue-towel-with-white-cream-on-face-g-m8EDc4X6Q",
-        "alt": "woman lying on blue towel with white cream on face",
-        "license": "Unsplash License"
+        "photographer": "Monstera Production",
+        "source": "https://www.pexels.com/photo/6977725/",
+        "alt": "Client resting with a clay mask on her face",
+        "license": "Pexels License"
     },
     "prp": {
         "file": "prp.jpg",
@@ -209,11 +202,10 @@
     },
     "skin-closeup": {
         "file": "skin-closeup.jpg",
-        "photographer": "Fleur Kaan",
-        "profile": "https://unsplash.com/@fleuraimeekaan",
-        "source": "https://unsplash.com/photos/close-portrait-of-woman-with-bokeh-e7jpGYe7OtU",
-        "alt": "close portrait of woman with bokeh",
-        "license": "Unsplash License"
+        "photographer": "BYB BYB",
+        "source": "https://www.pexels.com/photo/19999494/",
+        "alt": "Woman resting her chin on her hand, showing clear skin",
+        "license": "Pexels License"
     },
     "technology": {
         "file": "technology.jpg",
@@ -225,10 +217,9 @@
     },
     "wellness": {
         "file": "wellness.jpg",
-        "photographer": "Alexandr Podvalny",
-        "profile": "https://unsplash.com/@freestockpro",
-        "source": "https://unsplash.com/photos/a-woman-in-a-white-shirt-holding-a-stethoscope-tE7_jvK-_YU",
-        "alt": "a woman in a white shirt holding a stethoscope",
-        "license": "Unsplash License"
+        "photographer": "Cedric Fauntleroy",
+        "source": "https://www.pexels.com/photo/4270366/",
+        "alt": "Practitioner in scrubs with a mask under her chin and gloves ready",
+        "license": "Pexels License"
     }
 }

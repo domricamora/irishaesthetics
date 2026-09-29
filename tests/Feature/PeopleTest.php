@@ -17,7 +17,7 @@ beforeEach(function () {
 
 function owner(): User
 {
-    return User::where('email', 'owner@patrice.test')->firstOrFail();
+    return User::where('email', 'owner@irish.test')->firstOrFail();
 }
 
 function nurse(): Employee
@@ -45,7 +45,7 @@ function makeEmployee(array $overrides = []): Employee
 it('lists the staff roll and keeps it behind the permission', function () {
     $this->actingAs(owner())->get('/admin/hr')->assertOk()->assertSee('Camille Rivera');
 
-    $this->actingAs(User::where('email', 'reception@patrice.test')->firstOrFail())
+    $this->actingAs(User::where('email', 'reception@irish.test')->firstOrFail())
         ->get('/admin/hr')->assertOk();
 });
 
@@ -67,7 +67,7 @@ it('adds an employee to the roll', function () {
 });
 
 it('refuses an unknown account at the desk', function () {
-    $this->actingAs(User::where('email', 'reception@patrice.test')->firstOrFail())
+    $this->actingAs(User::where('email', 'reception@irish.test')->firstOrFail())
         ->post('/admin/hr', [
             'name' => 'Nobody',
             'employee_no' => 'EMP-9002',

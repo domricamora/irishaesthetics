@@ -19,12 +19,12 @@ beforeEach(function () {
 
 function bookkeeper(): User
 {
-    return User::where('email', 'owner@patrice.test')->firstOrFail();
+    return User::where('email', 'owner@irish.test')->firstOrFail();
 }
 
 function reception(): User
 {
-    return User::where('email', 'reception@patrice.test')->firstOrFail();
+    return User::where('email', 'reception@irish.test')->firstOrFail();
 }
 
 function takings(): Sale

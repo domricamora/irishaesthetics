@@ -43,7 +43,14 @@ class HandleInertiaRequests extends Middleware
         return [
             ...parent::share($request),
             'name' => config('app.name'),
-            'clinic' => fn () => Arr::except(config('clinic'), ['organization', 'modules']),
+            'clinic' => fn () => [
+                ...Arr::except(config('clinic'), ['organization', 'modules']),
+                // Resolved here rather than in the config file, where it would be
+                // a bare path the browser would read from the domain root and
+                // miss the subdirectory this is installed under.
+                'logo' => asset(config('clinic.logo')),
+                'logo_fallback' => asset(config('clinic.logo_fallback')),
+            ],
             // The clinic's own handles, which the office edits. The config
             // values are the fallback for an installation that has never
             // saved any, so a fresh one still shows whatever it was configured

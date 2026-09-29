@@ -12,13 +12,13 @@ it('scopes tenant data to the signed-in user organization', function () {
     $other = Organization::create(['name' => 'Other Clinic', 'slug' => 'other']);
     Branch::withoutGlobalScopes()->create(['organization_id' => $other->id, 'name' => 'Davao', 'slug' => 'davao']);
 
-    $this->actingAs(User::where('email', 'owner@patrice.test')->first());
+    $this->actingAs(User::where('email', 'owner@irish.test')->first());
 
     expect(Branch::pluck('slug')->sort()->values()->all())->toBe(['bgc', 'cebu', 'makati']);
 });
 
 it('fills organization_id on new tenant rows', function () {
-    $this->actingAs(User::where('email', 'owner@patrice.test')->first());
+    $this->actingAs(User::where('email', 'owner@irish.test')->first());
 
     $branch = Branch::create(['name' => 'Alabang', 'slug' => 'alabang']);
 
@@ -26,7 +26,7 @@ it('fills organization_id on new tenant rows', function () {
 });
 
 it('shares clinic branding, module flags and permissions with every page', function () {
-    $this->actingAs(User::where('email', 'reception@patrice.test')->first())
+    $this->actingAs(User::where('email', 'reception@irish.test')->first())
         ->get(route('dashboard'))
         ->assertInertia(fn (Assert $page) => $page
             ->where('clinic.name', config('clinic.name'))
@@ -38,8 +38,8 @@ it('shares clinic branding, module flags and permissions with every page', funct
 });
 
 it('lets Super Admin pass every permission check', function () {
-    $admin = User::where('email', 'admin@patrice.test')->first();
+    $admin = User::where('email', 'admin@irish.test')->first();
 
     expect($admin->can('settings.edit'))->toBeTrue()
-        ->and(User::where('email', 'reception@patrice.test')->first()->can('settings.edit'))->toBeFalse();
+        ->and(User::where('email', 'reception@irish.test')->first()->can('settings.edit'))->toBeFalse();
 });

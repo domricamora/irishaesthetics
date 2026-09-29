@@ -14,8 +14,8 @@ use Illuminate\Validation\ValidationException;
 beforeEach(function () {
     $this->seed(DatabaseSeeder::class);
     $this->manager = app(ManageStock::class);
-    $this->till = User::where('email', 'reception@patrice.test')->firstOrFail();
-    $this->supervisor = User::where('email', 'owner@patrice.test')->firstOrFail();
+    $this->till = User::where('email', 'reception@irish.test')->firstOrFail();
+    $this->supervisor = User::where('email', 'owner@irish.test')->firstOrFail();
 });
 
 function makati(): Branch
@@ -80,7 +80,7 @@ it('receives stock as a new lot and puts it on the shelf', function () {
     expect($movement->type)->toBe('receive')
         ->and($movement->quantity)->toBe(24)
         ->and($movement->note)->toBe('Delivery 4471')
-        ->and($movement->user->email)->toBe('owner@patrice.test');
+        ->and($movement->user->email)->toBe('owner@irish.test');
 });
 it('uses the soonest expiry first when stock is taken', function () {
     $product = sunscreen();

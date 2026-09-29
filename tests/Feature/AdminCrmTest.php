@@ -30,7 +30,7 @@ function staff(string $email): User
 }
 
 it('shows a website booking on the dashboard and the day agenda right away', function () {
-    $reception = staff('reception@patrice.test');
+    $reception = staff('reception@irish.test');
     $reference = Appointment::withoutGlobalScopes()->sole()->reference;
 
     $this->actingAs($reception)->get('/dashboard')->assertOk()
@@ -43,7 +43,7 @@ it('shows a website booking on the dashboard and the day agenda right away', fun
 it('lets reception move a lead stage and log a note', function () {
     $lead = Lead::withoutGlobalScopes()->sole();
 
-    $this->actingAs(staff('reception@patrice.test'))
+    $this->actingAs(staff('reception@irish.test'))
         ->patch("/admin/leads/{$lead->id}", ['stage' => 'contacted'])->assertRedirect();
     $this->post("/admin/leads/{$lead->id}/notes", ['note' => 'Called, prefers afternoons.'])->assertRedirect();
 
@@ -55,7 +55,7 @@ it('lets reception move a lead stage and log a note', function () {
 });
 
 it('filters and searches leads', function () {
-    $this->actingAs(staff('owner@patrice.test'))->get('/admin/leads?stage=consultation_booked&q=Ana')->assertOk()
+    $this->actingAs(staff('owner@irish.test'))->get('/admin/leads?stage=consultation_booked&q=Ana')->assertOk()
         ->assertInertia(fn ($page) => $page->has('leads.data', 1));
     $this->get('/admin/leads?q=nobody')->assertInertia(fn ($page) => $page->has('leads.data', 0));
 });
@@ -63,7 +63,7 @@ it('filters and searches leads', function () {
 it('updates an appointment status and records it on the lead', function () {
     $appointment = Appointment::withoutGlobalScopes()->sole();
 
-    $this->actingAs(staff('reception@patrice.test'))
+    $this->actingAs(staff('reception@irish.test'))
         ->patch("/admin/appointments/{$appointment->id}", ['status' => 'confirmed'])->assertRedirect();
 
     expect($appointment->fresh()->status)->toBe('confirmed')
@@ -108,7 +108,7 @@ function staffBooking(array $overrides = []): array
 }
 
 it('books a phone client from the front desk', function () {
-    $this->actingAs(staff('reception@patrice.test'))
+    $this->actingAs(staff('reception@irish.test'))
         ->post('/admin/appointments', staffBooking(['first_name' => 'Lia', 'phone' => '0918 555 1234', 'source' => 'phone']))
         ->assertRedirect();
 
@@ -116,13 +116,13 @@ it('books a phone client from the front desk', function () {
     expect($lead->source)->toBe('phone')
         ->and($lead->form)->toBe('admin')
         ->and($lead->appointments()->sole()->status)->toBe('confirmed')
-        ->and(CrmActivity::withoutGlobalScopes()->where('lead_id', $lead->id)->value('user_id'))->toBe(staff('reception@patrice.test')->id);
+        ->and(CrmActivity::withoutGlobalScopes()->where('lead_id', $lead->id)->value('user_id'))->toBe(staff('reception@irish.test')->id);
 });
 
 it('books an existing lead without creating a new one', function () {
     $lead = Lead::withoutGlobalScopes()->sole();
 
-    $this->actingAs(staff('reception@patrice.test'))
+    $this->actingAs(staff('reception@irish.test'))
         ->post('/admin/appointments', staffBooking(['lead_id' => $lead->id]))->assertRedirect();
 
     expect(Lead::withoutGlobalScopes()->count())->toBe(1)
@@ -132,7 +132,7 @@ it('books an existing lead without creating a new one', function () {
 it('moves an appointment and frees the old slot', function () {
     $old = Appointment::withoutGlobalScopes()->sole();
 
-    $this->actingAs(staff('reception@patrice.test'))
+    $this->actingAs(staff('reception@irish.test'))
         ->post('/admin/appointments', staffBooking(['reschedule_id' => $old->id, 'specialist_id' => $old->specialist_id]))->assertRedirect();
 
     expect($old->fresh()->status)->toBe('rescheduled')
@@ -147,13 +147,13 @@ it('lets a cancelled slot be booked again', function () {
     $old = Appointment::withoutGlobalScopes()->sole();
     $old->update(['status' => 'cancelled']);
 
-    $this->actingAs(staff('reception@patrice.test'))
+    $this->actingAs(staff('reception@irish.test'))
         ->post('/admin/appointments', staffBooking(['time' => '10:00', 'specialist_id' => $old->specialist_id, 'first_name' => 'Rae', 'phone' => '0918 555 0000']))
         ->assertSessionHasNoErrors();
 });
 
 it('adds a lead from the admin and finds it by search', function () {
-    $this->actingAs(staff('reception@patrice.test'))
+    $this->actingAs(staff('reception@irish.test'))
         ->post('/admin/leads', ['first_name' => 'Marga', 'last_name' => 'Uy', 'phone' => '0917 000 1111', 'source' => 'walk_in', 'privacy_consent' => true])
         ->assertRedirect();
 
@@ -174,7 +174,7 @@ it('keeps booking and lead creation to staff with the permission', function () {
 });
 
 it('opens the booking form for a new client, a lead visit and a move', function () {
-    $reception = staff('reception@patrice.test');
+    $reception = staff('reception@irish.test');
     $lead = Lead::withoutGlobalScopes()->sole();
     $appointment = Appointment::withoutGlobalScopes()->sole();
 
@@ -196,7 +196,7 @@ it('opens the booking form for a new client, a lead visit and a move', function 
 });
 
 it('opens the add lead form for staff who may create leads', function () {
-    $this->actingAs(staff('reception@patrice.test'))->get('/admin/leads/create')->assertOk()
+    $this->actingAs(staff('reception@irish.test'))->get('/admin/leads/create')->assertOk()
         ->assertInertia(fn ($page) => $page->component('admin/leads/create')
             ->has('sources')
             ->has('treatments')

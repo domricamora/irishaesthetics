@@ -187,9 +187,9 @@ export function AppSidebar() {
                                 aria-label={`${clinic.short_name} dashboard`}
                             >
                                 <Wordmark
-                                    name={clinic.short_name}
                                     descriptor="Clinic desk"
-                                    className="text-white [&_svg]:size-8 group-data-[collapsible=icon]:[&>span:last-child]:hidden"
+                                    markClassName="size-8"
+                                    className="group-data-[collapsible=icon]:[&>span:last-child]:hidden"
                                 />
                             </Link>
                         </SidebarMenuButton>
