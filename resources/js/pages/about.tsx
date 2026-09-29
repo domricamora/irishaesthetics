@@ -60,7 +60,7 @@ export default function About({
                 />
             </Head>
 
-            <section className="on-dark bg-plum px-4 pt-16 pb-14 text-white sm:px-8 lg:px-12 lg:pt-24">
+            <section className="on-dark bg-plum gutter pt-16 pb-14 text-white lg:pt-24">
                 <div className="mx-auto max-w-7xl">
                     <p className="eyebrow">
                         About
@@ -92,19 +92,25 @@ export default function About({
                 </div>
             </section>
 
-            <section className="grid gap-px border-b border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
-                {figures.map(([value, label]) => (
-                    <div key={label} className="bg-white px-4 py-10 sm:px-8">
-                        <p className="font-display text-4xl">{value}</p>
-                        <p className="mt-2 text-sm text-muted-foreground">
-                            {label}
-                        </p>
-                    </div>
-                ))}
+            {/* The figures band runs its dividers edge to edge, so the grid is
+                wrapped rather than the section padded: capping the section
+                would cap the hairlines too, and padding it would leave the
+                outer two cards with double the gutter of the inner two. */}
+            <section className="border-b border-border bg-white">
+                <div className="mx-auto grid max-w-7xl gap-px bg-border sm:grid-cols-2 lg:grid-cols-4">
+                    {figures.map(([value, label]) => (
+                        <div key={label} className="bg-white px-4 py-10 sm:px-8">
+                            <p className="font-display text-4xl">{value}</p>
+                            <p className="mt-2 text-sm text-muted-foreground">
+                                {label}
+                            </p>
+                        </div>
+                    ))}
+                </div>
             </section>
-            <section className="grid items-center gap-12 px-4 py-20 sm:px-8 lg:grid-cols-12 lg:px-12 lg:py-28">
+            <section className="grid items-center gap-12 gutter py-20 lg:grid-cols-12 lg:py-28">
                 <div className="lg:col-span-6">
-                    <h2 data-reveal className="text-4xl sm:text-5xl">
+                    <h2 data-reveal className="text-3xl sm:text-4xl">
                         How we work
                     </h2>
                     <p
@@ -151,8 +157,8 @@ export default function About({
                 </div>
             </section>
 
-            <section className="bg-mist px-4 py-20 sm:px-8 lg:px-12 lg:py-28">
-                <h2 data-reveal className="text-4xl sm:text-5xl">
+            <section className="bg-mist gutter py-20 lg:py-28">
+                <h2 data-reveal className="text-3xl sm:text-4xl">
                     Who looks after you
                 </h2>
                 <p className="mt-5 max-w-xl text-muted-foreground">
@@ -197,8 +203,8 @@ export default function About({
                 </div>
             </section>
 
-            <section className="px-4 py-20 sm:px-8 lg:px-12 lg:py-28">
-                <h2 data-reveal className="text-4xl sm:text-5xl">
+            <section className="gutter py-20 lg:py-28">
+                <h2 data-reveal className="text-3xl sm:text-4xl">
                     Three clinics, one standard
                 </h2>
                 <div className="mt-12 grid gap-10 lg:grid-cols-3">
@@ -249,8 +255,8 @@ export default function About({
             </section>
 
             {testimonials.length > 0 && (
-                <section className="on-dark bg-plum px-4 py-20 text-white sm:px-8 lg:px-12 lg:py-28">
-                    <h2 data-reveal className="text-4xl sm:text-5xl">
+                <section className="on-dark bg-plum gutter py-20 text-white lg:py-28">
+                    <h2 data-reveal className="text-3xl sm:text-4xl">
                         In their words
                     </h2>
                     <p className="mt-4 max-w-lg text-sm text-lilac">
@@ -278,10 +284,10 @@ export default function About({
                 </section>
             )}
 
-            <section className="bg-mist px-4 py-20 sm:px-8 lg:px-12 lg:py-28">
+            <section className="bg-mist gutter py-20 lg:py-28">
                 <div className="grid gap-12 lg:grid-cols-12">
                     <div className="lg:col-span-4">
-                        <h2 data-reveal className="text-4xl sm:text-5xl">
+                        <h2 data-reveal className="text-3xl sm:text-4xl">
                             Questions people ask first
                         </h2>
                         <p className="mt-5 text-sm text-muted-foreground">
@@ -302,7 +308,7 @@ export default function About({
                 </div>
             </section>
 
-            <section className="px-4 py-20 sm:px-8 lg:px-12">
+            <section className="gutter py-20 ">
                 <div className="flex flex-wrap items-end justify-between gap-6 border-t border-border pt-10">
                     <h2 className="max-w-xl text-3xl sm:text-4xl">
                         Come in for an assessment and leave with a plan.

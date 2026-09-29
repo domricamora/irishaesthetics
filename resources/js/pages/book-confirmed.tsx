@@ -48,7 +48,7 @@ export default function BookConfirmed({ appointment: a }: Props) {
     return (
         <>
             <Head title="Appointment requested" />
-            <section className="on-dark bg-plum px-4 py-16 text-white sm:px-8 lg:px-12 lg:py-24">
+            <section className="on-dark bg-plum gutter py-16 text-white lg:py-24">
                 <div className="mx-auto max-w-7xl">
                 <div className="grid items-center gap-12 lg:grid-cols-12">
                     <div className="lg:col-span-6">

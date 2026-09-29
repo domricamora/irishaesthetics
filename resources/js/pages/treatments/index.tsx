@@ -22,7 +22,7 @@ export default function TreatmentsIndex({
                 />
             </Head>
 
-            <section className="on-dark bg-plum px-4 pt-16 pb-14 text-white sm:px-8 lg:px-12 lg:pt-24">
+            <section className="on-dark bg-plum gutter pt-16 pb-14 text-white lg:pt-24">
                 <div className="mx-auto max-w-7xl">
                     <h1 className="max-w-3xl text-5xl leading-[1.05] sm:text-7xl">
                         Treatments, <em className="text-champagne">priced plainly.</em>
@@ -59,9 +59,9 @@ export default function TreatmentsIndex({
                             : 'scroll-mt-20 bg-white'
                     }
                 >
-                    <div className="grid gap-10 px-4 py-16 sm:px-8 lg:grid-cols-12 lg:px-12 lg:py-20">
+                    <div className="grid gap-10 gutter py-16 lg:grid-cols-12 lg:py-20">
                         <div className="lg:col-span-4">
-                            <h2 data-reveal className="text-4xl sm:text-5xl">
+                            <h2 data-reveal className="text-3xl sm:text-4xl">
                                 {c.name}
                             </h2>
                             <p className="mt-4 max-w-sm text-muted-foreground">

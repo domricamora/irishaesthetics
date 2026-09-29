@@ -26,7 +26,7 @@ export default function BeforeAfterPage({ cases }: { cases: CompareCase[] }) {
                 />
             </Head>
 
-            <section className="on-dark bg-plum px-4 pt-16 pb-14 text-white sm:px-8 lg:px-12 lg:pt-24">
+            <section className="on-dark bg-plum gutter pt-16 pb-14 text-white lg:pt-24">
                 <div className="mx-auto max-w-7xl">
                     <p className="eyebrow">
                         Before and after
@@ -44,7 +44,7 @@ export default function BeforeAfterPage({ cases }: { cases: CompareCase[] }) {
                 </div>
             </section>
 
-            <section className="px-4 py-14 sm:px-8 lg:px-12">
+            <section className="gutter py-14 ">
                 <div className="grid gap-6 border-y border-border py-6 sm:grid-cols-3">
                     <p className="text-sm text-muted-foreground">
                         Every comparison is labelled illustrative.
@@ -58,7 +58,7 @@ export default function BeforeAfterPage({ cases }: { cases: CompareCase[] }) {
                 </div>
             </section>
 
-            <section className="px-4 pb-16 sm:px-8 lg:px-12">
+            <section className="gutter pb-16 ">
                 <div className="grid gap-12 lg:grid-cols-2">
                     {cases.map((item, i) => (
                         <article
@@ -93,10 +93,10 @@ export default function BeforeAfterPage({ cases }: { cases: CompareCase[] }) {
                 </div>
             </section>
 
-            <section className="bg-mist px-4 py-20 sm:px-8 lg:px-12 lg:py-24">
+            <section className="bg-mist gutter py-20 lg:py-24">
                 <div className="grid gap-12 lg:grid-cols-12">
                     <div className="lg:col-span-5">
-                        <h2 data-reveal className="text-4xl sm:text-5xl">
+                        <h2 data-reveal className="text-3xl sm:text-4xl">
                             How we handle photographs
                         </h2>
                     </div>
@@ -130,7 +130,7 @@ export default function BeforeAfterPage({ cases }: { cases: CompareCase[] }) {
                 </div>
             </section>
 
-            <section className="px-4 py-16 sm:px-8 lg:px-12">
+            <section className="gutter py-16 ">
                 <div className="flex flex-wrap items-end justify-between gap-6 border-t border-border pt-10">
                     <h2 className="max-w-xl text-3xl sm:text-4xl">
                         Ask to see relevant cases at your consultation.

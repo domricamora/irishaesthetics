@@ -27,7 +27,7 @@ export default function LegalPage({ page, others }: Props) {
                 <meta name="description" content={page.summary ?? undefined} />
             </Head>
 
-            <section className="on-dark bg-plum px-4 pt-16 pb-12 text-white sm:px-8 lg:px-12 lg:pt-24">
+            <section className="on-dark bg-plum gutter pt-16 pb-12 text-white lg:pt-24">
                 <div className="mx-auto max-w-7xl">
                     <p className="eyebrow">
                         {page.summary ? 'The detail' : 'Clinic policy'}
@@ -48,7 +48,7 @@ export default function LegalPage({ page, others }: Props) {
                 </div>
             </section>
 
-            <section className="grid gap-12 px-4 py-16 sm:px-8 lg:grid-cols-12 lg:px-12 lg:py-20">
+            <section className="grid gap-12 gutter py-16 lg:grid-cols-12 lg:py-20">
                 <div className="lg:col-span-8">
                     {page.sections.map((section) => (
                         <section

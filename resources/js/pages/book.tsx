@@ -130,7 +130,7 @@ export default function Book({
         <>
             <Head title="Book a consultation" />
 
-            <section className="on-dark bg-plum px-4 pt-14 pb-12 text-white sm:px-8 lg:px-12">
+            <section className="on-dark bg-plum gutter pt-14 pb-12 text-white ">
                 <div className="mx-auto max-w-7xl">
                     <h1 className="text-5xl leading-[1.05] sm:text-6xl">
                         Book your <em className="text-champagne">visit.</em>
@@ -145,7 +145,7 @@ export default function Book({
             <form
                 onSubmit={submit}
                 noValidate
-                className="grid gap-10 px-4 py-12 sm:px-8 lg:grid-cols-12 lg:gap-12 lg:px-12 lg:py-16"
+                className="grid gap-10 gutter py-12 lg:grid-cols-12 lg:gap-12 lg:py-16"
             >
                 <div className="space-y-12 lg:col-span-8">
                     <Step n={1} title="Choose a treatment">

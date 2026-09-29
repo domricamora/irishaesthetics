@@ -238,6 +238,35 @@
     color: var(--color-plum-deep);
 }
 
+/*
+ * The content gutter every section sits in.
+ *
+ * The sections used to carry `px-4 sm:px-8 lg:px-12`, which pins the padding
+ * at 48px and lets the content run the whole width of the window. On a 27-inch
+ * display that is a 1900px line of body copy, which nobody can read across.
+ *
+ * Past the lg breakpoint the padding stops being a fixed number and starts
+ * being half the leftover space, so the content is held at the same 80rem
+ * measure the header, footer and page heroes already use while the section's
+ * own background still runs edge to edge. Below lg it is exactly the padding
+ * it replaced, so nothing moves on a phone or a small laptop.
+ */
+.gutter {
+    padding-inline: 1rem;
+}
+
+@media (min-width: 40rem) {
+    .gutter {
+        padding-inline: 2rem;
+    }
+}
+
+@media (min-width: 64rem) {
+    .gutter {
+        padding-inline: max(3rem, calc((100% - 80rem) / 2));
+    }
+}
+
 .site {
     scrollbar-color: var(--color-rose-deep) var(--color-blush);
     accent-color: var(--color-rose-deep);

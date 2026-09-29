@@ -44,7 +44,7 @@ export default function Contact({ branches, treatments }: Props) {
                 />
             </Head>
 
-            <section className="on-dark bg-plum px-4 pt-16 pb-14 text-white sm:px-8 lg:px-12 lg:pt-24">
+            <section className="on-dark bg-plum gutter pt-16 pb-14 text-white lg:pt-24">
                 <div className="mx-auto max-w-7xl">
                     <p className="eyebrow">
                         Contact
@@ -75,7 +75,7 @@ export default function Contact({ branches, treatments }: Props) {
                 </div>
             </section>
 
-            <section className="grid gap-12 px-4 py-16 sm:px-8 lg:grid-cols-12 lg:px-12 lg:py-20">
+            <section className="grid gap-12 gutter py-16 lg:grid-cols-12 lg:py-20">
                 <div className="lg:col-span-5">
                     <h2 data-reveal className="text-3xl sm:text-4xl">
                         Send us a message

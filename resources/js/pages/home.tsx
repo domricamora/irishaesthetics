@@ -135,10 +135,28 @@ export default function Home({
                 wide layout stops its three-across controls stretching.
             */}
             <section
-                aria-label="Book a consultation"
+                aria-labelledby="booking-heading"
                 className="border-b border-border bg-soft-rose"
             >
                 <div className="mx-auto max-w-7xl px-4 py-14 sm:px-8 lg:px-12 lg:py-16">
+                    {/* The heading lives here rather than inside the card, so
+                        it is set by the same eyebrow + serif + line pattern
+                        as every other section on the page, and the box is
+                        left as a form and nothing else. */}
+                    <div className="mb-10 max-w-2xl">
+                        <p className="eyebrow">Book online</p>
+                        <h2
+                            id="booking-heading"
+                            className="mt-4 text-3xl sm:text-4xl"
+                        >
+                            Choose a time that suits you.
+                        </h2>
+                        <p className="mt-4 text-foreground/70">
+                            Pick a treatment and a clinic, and we will hold the
+                            slot while you confirm. Nothing is charged until
+                            you have seen the plan.
+                        </p>
+                    </div>
                     <AppointmentCard
                         wide
                         treatments={bookable}
@@ -152,7 +170,7 @@ export default function Home({
                 aria-label={`Why patients choose ${clinic.short_name}`}
                 className="border-b border-border bg-white"
             >
-                <ul className="grid grid-cols-2 divide-border px-4 sm:px-8 md:grid-cols-5 md:divide-x lg:px-12">
+                <ul className="grid grid-cols-2 divide-border gutter md:grid-cols-5 md:divide-x">
                     {[
                         [
                             BadgeCheck,
@@ -212,7 +230,7 @@ export default function Home({
                 sells the specific treatments, this one says the clinic has a
                 shape and a method -- so both stay.
             */}
-            <section className="border-b border-border bg-soft-rose px-4 py-20 sm:px-8 lg:px-12 lg:py-24">
+            <section className="border-b border-border bg-soft-rose gutter py-20 lg:py-24">
                 <div className="mx-auto max-w-7xl">
                     <h2 data-reveal className="text-center text-3xl sm:text-4xl">
                         Our <em className="text-rose-ink">Signature</em>{' '}
@@ -255,9 +273,9 @@ export default function Home({
             </section>
 
             {/* Featured treatments */}
-            <section className="px-4 py-20 sm:px-8 lg:px-12 lg:py-28">
+            <section className="gutter py-20 lg:py-28">
                 <div className="flex flex-wrap items-end justify-between gap-6">
-                    <h2 data-reveal className="max-w-2xl text-4xl sm:text-5xl">
+                    <h2 data-reveal className="max-w-2xl text-3xl sm:text-4xl">
                         Treatments our patients book most
                     </h2>
                     <Link
@@ -434,7 +452,7 @@ export default function Home({
                 which is why they are given equal weight rather than being
                 folded into the sections above.
             */}
-            <section className="px-4 py-20 sm:px-8 lg:px-12 lg:py-24">
+            <section className="gutter py-20 lg:py-24">
                 <ul className="mx-auto grid max-w-7xl gap-2 sm:grid-cols-2 lg:grid-cols-4">
                     {[
                         {
@@ -502,8 +520,8 @@ export default function Home({
             </section>
 
             {/* Client reviews */}
-            <section className="bg-mist px-4 py-20 sm:px-8 lg:px-12 lg:py-28">
-                <h2 data-reveal className="max-w-2xl text-4xl sm:text-5xl">
+            <section className="bg-mist gutter py-20 lg:py-28">
+                <h2 data-reveal className="max-w-2xl text-3xl sm:text-4xl">
                     In our patients’ words
                 </h2>
                 <div className="mt-12 grid gap-px bg-plum/10 md:grid-cols-2">
@@ -539,10 +557,10 @@ export default function Home({
             </section>
 
             {/* Beauty gallery */}
-            <section className="bg-white px-4 py-20 sm:px-8 lg:px-12 lg:py-28">
+            <section className="bg-white gutter py-20 lg:py-28">
                 <div className="grid items-center gap-12 lg:grid-cols-12">
                     <div className="lg:col-span-5">
-                        <h2 data-reveal className="text-4xl sm:text-5xl">
+                        <h2 data-reveal className="text-3xl sm:text-4xl">
                             See the difference a plan makes
                         </h2>
                         <p className="mt-5 max-w-md text-muted-foreground">
@@ -569,10 +587,10 @@ export default function Home({
             <EnquiryBand treatments={bookable} />
 
             {/* Categories index */}
-            <section className="bg-mist px-4 py-20 sm:px-8 lg:px-12 lg:py-24">
+            <section className="bg-mist gutter py-20 lg:py-24">
                 <div className="grid gap-10 lg:grid-cols-12">
                     <div className="lg:col-span-4">
-                        <h2 data-reveal className="text-4xl">
+                        <h2 data-reveal className="text-3xl sm:text-4xl">
                             Care for face, body, hair and wellbeing
                         </h2>
                         <p className="mt-4 max-w-sm text-muted-foreground">
@@ -605,9 +623,9 @@ export default function Home({
             </section>
 
             {/* Technology and follow-up */}
-            <section className="on-dark grid bg-plum-deep text-white lg:grid-cols-2">
-                <div className="px-4 py-20 sm:px-8 lg:px-12 lg:py-28">
-                    <h2 data-reveal className="max-w-lg text-4xl sm:text-5xl">
+            <section className="on-dark gutter grid bg-plum-deep text-white lg:grid-cols-2">
+                <div className="py-20 lg:py-28">
+                    <h2 data-reveal className="max-w-lg text-3xl sm:text-4xl">
                         Technology that works for you, before and after the
                         visit
                     </h2>
@@ -685,9 +703,9 @@ function EnquiryBand({ treatments }: { treatments: Treatment[] }) {
             id="enquire"
             className="on-dark scroll-mt-20 bg-plum text-white"
         >
-            <div className="grid gap-12 px-4 py-20 sm:px-8 lg:grid-cols-12 lg:px-12 lg:py-28">
+            <div className="grid gap-12 gutter py-20 lg:grid-cols-12 lg:py-28">
                 <div className="lg:col-span-5">
-                    <h2 className="text-4xl sm:text-5xl">Ready to glow?</h2>
+                    <h2 className="text-3xl sm:text-4xl">Ready to glow?</h2>
                     <p className="mt-5 max-w-md text-lg text-lilac">
                         Tell us what you would like to change. A patient
                         coordinator will reply within one business day with a

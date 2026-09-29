@@ -30,7 +30,7 @@ export default function BlogShow({ post, related }: Props) {
             </Head>
 
             <article>
-                <header className="on-dark bg-plum px-4 pt-16 pb-12 text-white sm:px-8 lg:px-12 lg:pt-24">
+                <header className="on-dark gutter bg-plum pt-16 pb-12 text-white lg:pt-24">
                     <p className="eyebrow">
                         {post.category}
                     </p>
@@ -51,7 +51,7 @@ export default function BlogShow({ post, related }: Props) {
                     />
                 )}
 
-                <div className="grid gap-12 px-4 py-16 sm:px-8 lg:grid-cols-12 lg:px-12">
+                <div className="grid gap-12 gutter py-16 lg:grid-cols-12">
                     <div className="flex flex-col gap-6 lg:col-span-8">
                         <p className="text-lg">{post.excerpt}</p>
                         {post.paragraphs.map((paragraph) => (
@@ -124,7 +124,7 @@ export default function BlogShow({ post, related }: Props) {
             </article>
 
             {related.length > 0 && (
-                <section className="bg-mist px-4 py-16 sm:px-8 lg:px-12">
+                <section className="bg-mist gutter py-16 ">
                     <div className="flex items-baseline justify-between gap-4">
                         <h2 className="text-3xl">More from the journal</h2>
                         <Link

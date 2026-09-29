@@ -108,23 +108,28 @@ export default function AppointmentCard({
 
     return (
         <section
-            aria-labelledby="card-title"
+            aria-label="Your consultation"
             className={cn('card-stock w-full p-6 text-ink sm:p-7', className)}
         >
-            {/* In wide mode the heading, the progress and the treatment choice
-                sit in their own column, and the day/time half sits beside
-                them, so a full-width band does not stretch every control. */}
+            {/*
+                The heading moved out to the section on the page, where it can
+                be set like every other heading on the site. What is left here
+                is the form and the state chip.
+
+                Nothing in the box is bold. The section heading is the only
+                place the display serif is used; inside the form everything is
+                the body sans at its normal weight, because a form is a set of
+                small controls and giving each one a heavier voice than the
+                heading above it is how a booking card ends up shouting.
+            */}
             <div
                 className={cn(
                     wide && 'grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:gap-12',
                 )}
             >
                 <div className={cn(wide && 'min-w-0')}>
-                    <div className="flex items-baseline justify-between gap-4">
-                        <h2 id="card-title" className="text-2xl font-semibold">
-                            Your consultation
-                        </h2>
-                        <span className="border border-dashed border-plum/40 px-2 py-0.5 text-xs text-plum">
+                    <div className="flex items-center justify-between gap-4">
+                        <span className="text-xs tracking-[0.18em] text-muted-foreground uppercase">
                             Draft
                         </span>
                     </div>
@@ -161,7 +166,7 @@ export default function AppointmentCard({
 
             <label
                 htmlFor="card-treatment"
-                className="mt-6 block text-xs font-medium text-muted-foreground"
+                className="mt-6 block text-xs tracking-[0.14em] text-muted-foreground uppercase"
             >
                 Treatment
             </label>
@@ -171,7 +176,7 @@ export default function AppointmentCard({
                 onChange={(e) =>
                     setDraft({ treatment: Number(e.target.value) })
                 }
-                className="mt-1.5 h-12 w-full cursor-pointer border border-input bg-white px-3 text-base font-medium focus:border-plum focus:outline-none"
+                className="mt-1.5 h-12 w-full cursor-pointer border border-input bg-white px-3 text-base focus:border-plum focus:outline-none"
             >
                 {treatments.map((t) => (
                     <option key={t.id} value={t.id}>
@@ -183,13 +188,13 @@ export default function AppointmentCard({
                 <span>
                     {treatment.promo_price ? (
                         <>
-                            <span className="font-medium text-ink">
+                            <span className="text-ink">
                                 {formatPrice(treatment.promo_price)}
                             </span>{' '}
                             <s>{formatPrice(treatment.price)}</s>
                         </>
                     ) : (
-                        <span className="font-medium text-ink">
+                        <span className="text-ink">
                             From {formatPrice(treatment.price)}
                         </span>
                     )}
@@ -201,7 +206,7 @@ export default function AppointmentCard({
 
                 <div className={cn(wide && 'min-w-0')}>
             <fieldset className="mt-5">
-                <legend className="text-xs font-medium text-muted-foreground">
+                <legend className="text-xs tracking-[0.14em] text-muted-foreground uppercase">
                     Branch
                 </legend>
                 <div className="mt-1.5 grid grid-cols-3 border border-input">
@@ -226,7 +231,7 @@ export default function AppointmentCard({
             </fieldset>
 
             <fieldset className="mt-5">
-                <legend className="text-xs font-medium text-muted-foreground">
+                <legend className="text-xs tracking-[0.14em] text-muted-foreground uppercase">
                     Day
                 </legend>
                 <div className="mt-1.5 grid grid-cols-7 gap-1">
@@ -251,7 +256,7 @@ export default function AppointmentCard({
                                 )}
                             >
                                 <span>{dayFormat.format(d)}</span>
-                                <span className="text-base font-semibold">
+                                <span className="text-base">
                                     {d.getDate()}
                                 </span>
                             </button>
@@ -262,7 +267,7 @@ export default function AppointmentCard({
 
             <div className="mt-5">
                 <p
-                    className="text-xs font-medium text-muted-foreground"
+                    className="text-xs tracking-[0.14em] text-muted-foreground uppercase"
                     id="times-label"
                 >
                     Next open times
@@ -295,7 +300,11 @@ export default function AppointmentCard({
                                 onClick={() => pick(time)}
                                 className="press numerals group flex h-14 items-baseline justify-center gap-1 border border-input hover:border-plum hover:bg-plum hover:text-white"
                             >
-                                <span className="font-display text-2xl font-semibold tracking-tight">
+                                {/* The body sans at its normal weight, the same
+                                    face as every other control in the box. It
+                                    was the display serif at semibold, which
+                                    read as louder than the heading above it. */}
+                                <span className="font-sans text-lg">
                                     {clock}
                                 </span>
                                 <span className="text-[11px] text-muted-foreground group-hover:text-white/80">
@@ -317,7 +326,7 @@ export default function AppointmentCard({
                         },
                     }).url
                 }
-                className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-plum hover:text-violet"
+                className="mt-5 inline-flex items-center gap-1.5 text-sm text-plum hover:text-rose-ink"
             >
                 See every time and choose a doctor{' '}
                 <ArrowRight className="size-4" />

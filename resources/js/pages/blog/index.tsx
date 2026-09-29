@@ -44,7 +44,7 @@ export default function BlogIndex({ posts, filter, categories }: Props) {
                 />
             </Head>
 
-            <section className="on-dark bg-plum px-4 pt-16 pb-14 text-white sm:px-8 lg:px-12 lg:pt-24">
+            <section className="on-dark bg-plum gutter pt-16 pb-14 text-white lg:pt-24">
                 <div className="mx-auto max-w-7xl">
                     <p className="eyebrow">
                         Journal
@@ -64,7 +64,7 @@ export default function BlogIndex({ posts, filter, categories }: Props) {
 
             <nav
                 aria-label="Topics"
-                className="flex gap-2 overflow-x-auto border-b border-border px-4 py-4 sm:px-8 lg:px-12"
+                className="flex gap-2 overflow-x-auto border-b border-border gutter py-4"
             >
                 <Link
                     href={blogRoutes.index().url}
@@ -101,7 +101,7 @@ export default function BlogIndex({ posts, filter, categories }: Props) {
             </nav>
 
             {first && (
-                <section className="px-4 py-14 sm:px-8 lg:px-12">
+                <section className="gutter py-14 ">
                     <article
                         data-reveal
                         className="grid gap-8 border-b border-border pb-14 lg:grid-cols-2 lg:items-center"
@@ -145,7 +145,7 @@ export default function BlogIndex({ posts, filter, categories }: Props) {
                 </section>
             )}
 
-            <section className="px-4 pb-16 sm:px-8 lg:px-12">
+            <section className="gutter pb-16 ">
                 {rest.length ? (
                     <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
                         {rest.map((post, i) => (
@@ -197,7 +197,7 @@ export default function BlogIndex({ posts, filter, categories }: Props) {
             </section>
 
             {posts.links.length > 3 && (
-                <nav aria-label="Pages" className="px-4 pb-12 sm:px-8 lg:px-12">
+                <nav aria-label="Pages" className="gutter pb-12">
                     <div className="flex flex-wrap items-center justify-between gap-4 border-t border-border pt-6 text-sm">
                         <p className="text-muted-foreground">
                             {posts.from} to {posts.to} of {posts.total}
@@ -234,7 +234,7 @@ export default function BlogIndex({ posts, filter, categories }: Props) {
                 </nav>
             )}
 
-            <section className="bg-mist px-4 py-16 sm:px-8 lg:px-12">
+            <section className="bg-mist gutter py-16 ">
                 <div className="flex flex-wrap items-end justify-between gap-6">
                     <h2 className="max-w-xl text-3xl sm:text-4xl">
                         Reading is free. The consultation is where it starts.

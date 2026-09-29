@@ -45,7 +45,7 @@ export default function Membership({ tiers, branches, faqs }: Props) {
                 />
             </Head>
 
-            <section className="on-dark bg-plum px-4 pt-16 pb-14 text-white sm:px-8 lg:px-12 lg:pt-24">
+            <section className="on-dark bg-plum gutter pt-16 pb-14 text-white lg:pt-24">
                 <div className="mx-auto max-w-7xl">
                     <p className="eyebrow">
                         Membership
@@ -80,7 +80,7 @@ export default function Membership({ tiers, branches, faqs }: Props) {
                 </div>
             </section>
 
-            <section className="px-4 py-16 sm:px-8 lg:px-12 lg:py-20">
+            <section className="gutter py-16 lg:py-20">
                 <div className="grid gap-px bg-border lg:grid-cols-3">
                     {tiers.map((tier, i) => (
                         <article
@@ -173,10 +173,10 @@ export default function Membership({ tiers, branches, faqs }: Props) {
                 </p>
             </section>
 
-            <section className="bg-mist px-4 py-20 sm:px-8 lg:px-12 lg:py-28">
+            <section className="bg-mist gutter py-20 lg:py-28">
                 <div className="grid gap-12 lg:grid-cols-12">
                     <div className="lg:col-span-4">
-                        <h2 data-reveal className="text-4xl sm:text-5xl">
+                        <h2 data-reveal className="text-3xl sm:text-4xl">
                             How membership works
                         </h2>
                         <p className="mt-5 text-sm text-muted-foreground">
@@ -206,10 +206,10 @@ export default function Membership({ tiers, branches, faqs }: Props) {
                 </div>
             </section>
 
-            <section className="px-4 py-20 sm:px-8 lg:px-12 lg:py-28">
+            <section className="gutter py-20 lg:py-28">
                 <div className="grid gap-12 lg:grid-cols-12">
                     <div className="lg:col-span-4">
-                        <h2 data-reveal className="text-4xl sm:text-5xl">
+                        <h2 data-reveal className="text-3xl sm:text-4xl">
                             Membership questions
                         </h2>
                         <p className="mt-5 text-sm text-muted-foreground">
@@ -244,7 +244,7 @@ export default function Membership({ tiers, branches, faqs }: Props) {
                 </div>
             </section>
 
-            <section className="px-4 pb-20 sm:px-8 lg:px-12">
+            <section className="gutter pb-20 ">
                 <div className="flex flex-wrap items-end justify-between gap-6 border-t border-border pt-10">
                     <h2 className="max-w-xl text-3xl sm:text-4xl">
                         Start with a consultation, then decide.

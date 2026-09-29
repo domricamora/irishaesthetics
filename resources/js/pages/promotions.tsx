@@ -31,7 +31,7 @@ export default function Promotions({ promotions, tiers }: Props) {
                 />
             </Head>
 
-            <section className="on-dark bg-plum px-4 pt-16 pb-14 text-white sm:px-8 lg:px-12 lg:pt-24">
+            <section className="on-dark bg-plum gutter pt-16 pb-14 text-white lg:pt-24">
                 <div className="mx-auto max-w-7xl">
                     <p className="eyebrow">
                         Promotions
@@ -48,7 +48,7 @@ export default function Promotions({ promotions, tiers }: Props) {
                 </div>
             </section>
 
-            <section className="px-4 py-16 sm:px-8 lg:px-12 lg:py-20">
+            <section className="gutter py-16 lg:py-20">
                 <ul className="flex flex-col gap-16">
                     {promotions.map((promo, i) => (
                         <li
@@ -144,10 +144,10 @@ export default function Promotions({ promotions, tiers }: Props) {
             </section>
 
             {tiers.length > 0 && (
-                <section className="on-dark bg-plum-deep px-4 py-20 text-white sm:px-8 lg:px-12 lg:py-24">
+                <section className="on-dark bg-plum-deep gutter py-20 text-white lg:py-24">
                     <div className="grid gap-12 lg:grid-cols-12">
                         <div className="lg:col-span-5">
-                            <h2 data-reveal className="text-4xl sm:text-5xl">
+                            <h2 data-reveal className="text-3xl sm:text-4xl">
                                 Better than a promo: a plan
                             </h2>
                             <p className="mt-5 max-w-md text-sm text-lilac">
@@ -184,7 +184,7 @@ export default function Promotions({ promotions, tiers }: Props) {
                 </section>
             )}
 
-            <section className="px-4 py-16 sm:px-8 lg:px-12">
+            <section className="gutter py-16 ">
                 <div className="flex flex-wrap items-end justify-between gap-6 border-t border-border pt-8">
                     <p className="max-w-2xl text-xs text-muted-foreground">
                         Offers cannot be combined with each other or with member
