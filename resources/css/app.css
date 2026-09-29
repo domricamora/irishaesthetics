@@ -13,6 +13,23 @@
         'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
     --font-display: 'Bodoni Moda', 'Didot', 'Bodoni 72', Georgia, serif;
 
+    /*
+     * The script face, for the clinic's own name and nowhere else.
+     *
+     * It is a display face: it is used at one size, in one place, and always
+     * above a tracked sans line. It is never set as a body font, because a
+     * script at 14px is a legibility problem and a script in a paragraph is
+     * worse. Adding a face to a palette is how a brand quietly accumulates
+     * six typefaces, so this one has a job and a boundary.
+     *
+     * The fallbacks matter more than usual: Pinyon has no italic, and on a
+     * machine without the webfont these are the faces a script should degrade
+     * to rather than a generic sans.
+     */
+    --font-script:
+        'Pinyon Script', 'Snell Roundhand', 'Apple Chancery', 'Brush Script MT',
+        cursive;
+
     /* Square corners everywhere (owner rule); avatars use rounded-full. */
     --radius-lg: var(--radius);
     --radius-md: var(--radius);

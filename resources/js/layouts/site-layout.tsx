@@ -63,15 +63,24 @@ export default function SiteLayout({ children }: { children: ReactNode }) {
                 <div className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-6 px-4 sm:px-8 lg:px-12">
                     <Link
                         href={home().url}
-                        className="press"
+                        className="press min-w-0"
                         aria-label={`${clinic.name} home`}
                     >
+                        {/* The script name over the tracked caps line is the
+                            header's only vertical cost, and it is sized so the
+                            lockup clears the row rather than growing it. */}
                         <Wordmark />
                     </Link>
 
+                    {/*
+                        The nav starts at xl rather than lg. At lg the row is
+                        1024px wide and the lockup now takes about 280 of them,
+                        which leaves the six links, the login and the booking
+                        button with nowhere to go.
+                    */}
                     <nav
                         aria-label="Main"
-                        className="hidden items-center gap-8 text-sm text-foreground/70 lg:flex"
+                        className="hidden items-center gap-8 text-sm text-foreground/70 xl:flex"
                     >
                         {nav.map((item) => (
                             <Link
@@ -100,7 +109,7 @@ export default function SiteLayout({ children }: { children: ReactNode }) {
                         <button
                             type="button"
                             onClick={() => setOpen(!open)}
-                            className="press -mr-2 p-2 lg:hidden"
+                            className="press -mr-2 p-2 xl:hidden"
                             aria-expanded={open}
                             aria-controls="mobile-nav"
                             aria-label={open ? 'Close menu' : 'Open menu'}
@@ -118,7 +127,7 @@ export default function SiteLayout({ children }: { children: ReactNode }) {
                     id="mobile-nav"
                     aria-label="Mobile"
                     className={cn(
-                        'fixed inset-x-0 top-20 bottom-0 bg-background px-4 pt-6 pb-24 sm:px-8 lg:hidden',
+                        'fixed inset-x-0 top-20 bottom-0 bg-background px-4 pt-6 pb-24 sm:px-8 xl:hidden',
                         open ? 'block' : 'hidden',
                     )}
                 >
@@ -244,7 +253,16 @@ function SiteFooter() {
             <div className="mx-auto max-w-7xl px-4 py-16 sm:px-8 lg:px-12 lg:py-20">
                 <div className="grid gap-10 lg:grid-cols-12 lg:gap-8">
                     <div className="lg:col-span-4">
-                        <Wordmark markClassName="size-20" />
+                        {/*
+                            The footer is the one place the lockup is allowed to
+                            be the largest thing on the page: the mark is 80px
+                            here, so the script is scaled to match rather than
+                            repeating the header's 27px.
+                        */}
+                        <Wordmark
+                            markClassName="size-20"
+                            nameClassName="text-[2.75rem]"
+                        />
                         <p className="mt-5 max-w-sm text-sm leading-relaxed text-foreground/70">
                             {clinic.tagline} Physician-led aesthetic and wellness
                             care in Makati, BGC and Cebu.
@@ -296,9 +314,16 @@ function SiteFooter() {
                                 <li>Makati</li>
                                 <li>BGC, Taguig</li>
                                 <li>Cebu Business Park</li>
+                                {/*
+                                    Points at the contact page rather than a
+                                    home-page anchor: the locations section this
+                                    used to jump to is gone, and the contact
+                                    page is where the branch addresses, hours
+                                    and directions actually live.
+                                */}
                                 <li>
                                     <Link
-                                        href={`${home().url}#locations`}
+                                        href={contact().url}
                                         className="hover:text-rose-ink"
                                     >
                                         Hours and directions

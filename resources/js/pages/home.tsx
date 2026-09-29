@@ -7,9 +7,7 @@ import {
     ClipboardList,
     Cpu,
     Lock,
-    Minus,
     Phone,
-    Plus,
     Sparkles,
     WandSparkles,
 } from 'lucide-react';
@@ -26,8 +24,6 @@ import treatmentRoutes from '@/routes/treatments';
 import type {
     Branch,
     Category,
-    Faq,
-    Specialist,
     Testimonial,
     Treatment,
 } from '@/types/site';
@@ -36,10 +32,8 @@ type Props = {
     categories: Category[];
     featured: Treatment[];
     bookable: Treatment[];
-    specialists: Specialist[];
     branches: Branch[];
     testimonials: Testimonial[];
-    faqs: Faq[];
 };
 
 const stagger = (i: number) => ({ '--i': i }) as CSSProperties;
@@ -48,10 +42,8 @@ export default function Home({
     categories,
     featured,
     bookable,
-    specialists,
     branches,
     testimonials,
-    faqs,
 }: Props) {
     const { clinic, mediaUrl } = usePage().props;
     const media = (file: string) => `${mediaUrl}/${file}`;
@@ -130,16 +122,28 @@ export default function Home({
 
                     <div className="relative min-h-[22rem] overflow-hidden bg-blush sm:min-h-[30rem] lg:min-h-[34rem]">
                         <HeroVideo inset={false} />
-                        {/* The booking card, moved out of the hero's left
-                            column and set against the image edge, which is
-                            where the reference puts its own booking panel. */}
-                        <div className="absolute right-0 bottom-0 w-[min(100%,22rem)] p-4 sm:w-[22rem] sm:p-6">
-                            <AppointmentCard
-                                treatments={bookable}
-                                branches={branches}
-                            />
-                        </div>
                     </div>
+                </div>
+            </section>
+
+            {/*
+                The booking card, given the full width of the page directly
+                below the hero. It used to sit in the bottom corner of the
+                hero's image, which made the fold do two jobs at once and left
+                the form reading as part of the photograph. On its own band it
+                is the one thing on the screen a visitor can act on, and the
+                wide layout stops its three-across controls stretching.
+            */}
+            <section
+                aria-label="Book a consultation"
+                className="border-b border-border bg-soft-rose"
+            >
+                <div className="mx-auto max-w-7xl px-4 py-14 sm:px-8 lg:px-12 lg:py-16">
+                    <AppointmentCard
+                        wide
+                        treatments={bookable}
+                        branches={branches}
+                    />
                 </div>
             </section>
 
@@ -186,7 +190,7 @@ export default function Home({
                                 className="py-6 md:px-6 md:first:pl-0"
                             >
                                 <I
-                                    className="size-5 text-violet"
+                                    className="size-5 text-rose-ink"
                                     aria-hidden="true"
                                 />
                                 <p className="mt-3 text-sm font-semibold">
@@ -258,7 +262,7 @@ export default function Home({
                     </h2>
                     <Link
                         href={treatmentRoutes.index().url}
-                        className="inline-flex items-center gap-2 font-medium text-plum hover:text-violet"
+                        className="inline-flex items-center gap-2 font-medium text-plum hover:text-rose-ink"
                     >
                         All {bookable.length} treatments{' '}
                         <ArrowRight className="size-4" />
@@ -309,7 +313,7 @@ export default function Home({
                                         )}
                                     >
                                         <div>
-                                            <p className="text-[11px] tracking-[0.2em] text-gold uppercase">
+                                            <p className="eyebrow on-dark">
                                                 {t.category?.name}
                                             </p>
                                             <h3
@@ -352,116 +356,6 @@ export default function Home({
                             </article>
                         );
                     })}
-                </div>
-            </section>
-
-            {/* Signature packages */}
-            <section
-                aria-label="Membership packages"
-                id="membership"
-                className="scroll-mt-20 px-4 py-20 sm:px-8 lg:px-12 lg:py-28"
-            >
-                <div className="grid gap-12 lg:grid-cols-12">
-                    <div className="lg:col-span-4">
-                        <h2 data-reveal className="text-4xl sm:text-5xl">
-                            Membership for skin that stays on track
-                        </h2>
-                        <p className="mt-5 max-w-sm text-muted-foreground">
-                            A monthly plan for patients who want regular care,
-                            member pricing and first pick of appointment times.
-                        </p>
-                    </div>
-                    <div className="grid gap-px bg-border sm:grid-cols-2 lg:col-span-8">
-                        {[
-                            {
-                                name: 'Glow',
-                                price: 2990,
-                                items: [
-                                    'One Hydra Facial every month',
-                                    '10% off all facial treatments',
-                                    'Birthday treatment upgrade',
-                                    'Priority booking',
-                                ],
-                                featured: false,
-                            },
-                            {
-                                name: 'Premium',
-                                price: 6500,
-                                items: [
-                                    'A monthly treatment allowance',
-                                    '15% off treatments and products',
-                                    'Quarterly skin review with a doctor',
-                                    'Priority booking and member events',
-                                ],
-                                featured: true,
-                            },
-                        ].map((plan, i) => (
-                            <div
-                                key={plan.name}
-                                data-reveal
-                                style={stagger(i)}
-                                className={cn(
-                                    'flex flex-col p-8',
-                                    plan.featured
-                                        ? 'bg-plum text-white'
-                                        : 'bg-white',
-                                )}
-                            >
-                                <h3 className="text-2xl">
-                                    {plan.name} Membership
-                                </h3>
-                                <p className="numerals mt-6">
-                                    <span className="font-display text-5xl font-semibold">
-                                        {formatPrice(plan.price)}
-                                    </span>
-                                    <span
-                                        className={cn(
-                                            'ml-1 text-sm',
-                                            plan.featured
-                                                ? 'text-lilac'
-                                                : 'text-muted-foreground',
-                                        )}
-                                    >
-                                        per month
-                                    </span>
-                                </p>
-                                <ul
-                                    className={cn(
-                                        'mt-6 flex-1 space-y-3 text-sm',
-                                        plan.featured
-                                            ? 'text-lilac'
-                                            : 'text-muted-foreground',
-                                    )}
-                                >
-                                    {plan.items.map((item) => (
-                                        <li key={item} className="flex gap-3">
-                                            <span
-                                                aria-hidden="true"
-                                                className={cn(
-                                                    'mt-2 h-px w-3 shrink-0',
-                                                    plan.featured
-                                                        ? 'bg-gold'
-                                                        : 'bg-plum',
-                                                )}
-                                            />
-                                            {item}
-                                        </li>
-                                    ))}
-                                </ul>
-                                <a
-                                    href="#enquire"
-                                    className={cn(
-                                        'press mt-8 inline-flex h-12 items-center justify-center font-medium',
-                                        plan.featured
-                                            ? 'bg-gold text-ink hover:bg-white'
-                                            : 'border border-plum text-plum hover:bg-plum hover:text-white',
-                                    )}
-                                >
-                                    Ask about {plan.name}
-                                </a>
-                            </div>
-                        ))}
-                    </div>
                 </div>
             </section>
 
@@ -710,45 +604,6 @@ export default function Home({
                 </div>
             </section>
 
-            {/* Specialists */}
-            <section
-                id="specialists"
-                className="scroll-mt-20 bg-mist px-4 py-20 sm:px-8 lg:px-12 lg:py-28"
-            >
-                <h2 data-reveal className="max-w-2xl text-4xl sm:text-5xl">
-                    The physicians behind your plan
-                </h2>
-                <div className="mt-12 grid gap-10 md:grid-cols-3">
-                    {specialists.map((s, i) => (
-                        <article key={s.id} data-reveal style={stagger(i)}>
-                            <div className="aspect-[4/5] overflow-hidden bg-lilac">
-                                {s.photo && (
-                                    <img
-                                        src={s.photo}
-                                        alt={`Portrait of ${s.name}`}
-                                        loading="lazy"
-                                        className="h-full w-full object-cover object-top"
-                                    />
-                                )}
-                            </div>
-                            <h3 className="mt-5 text-2xl">{s.name}</h3>
-                            <p className="text-sm text-plum">{s.title}</p>
-                            <p className="mt-1 text-xs text-muted-foreground">
-                                {s.credentials}
-                            </p>
-                            <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-                                {s.bio}
-                            </p>
-                            <p className="mt-4 text-xs text-muted-foreground">
-                                {s.focus?.join(' · ')}
-                                <br />
-                                Sees patients in {s.branches?.join(' and ')}
-                            </p>
-                        </article>
-                    ))}
-                </div>
-            </section>
-
             {/* Technology and follow-up */}
             <section className="on-dark grid bg-plum-deep text-white lg:grid-cols-2">
                 <div className="px-4 py-20 sm:px-8 lg:px-12 lg:py-28">
@@ -781,7 +636,7 @@ export default function Home({
                                 style={stagger(i)}
                                 className="border-t border-white/15 pt-5"
                             >
-                                <p className="font-semibold text-gold">
+                                <p className="font-semibold text-champagne">
                                     {title}
                                 </p>
                                 <p className="mt-2 text-sm text-lilac/85">
@@ -799,153 +654,7 @@ export default function Home({
                 />
             </section>
 
-            {/* Locations */}
-            <section
-                id="locations"
-                className="scroll-mt-20 px-4 py-20 sm:px-8 lg:px-12 lg:py-28"
-            >
-                <h2 data-reveal className="max-w-2xl text-4xl sm:text-5xl">
-                    Three clinics, one standard of care
-                </h2>
-                <div className="mt-12 grid gap-10 md:grid-cols-3">
-                    {branches.map((b, i) => {
-                        const open = isOpenNow(b);
-
-                        return (
-                            <article key={b.id} data-reveal style={stagger(i)}>
-                                <div className="aspect-[4/3] overflow-hidden bg-mist">
-                                    {b.image && (
-                                        <img
-                                            src={b.image}
-                                            alt={`${b.city} skyline near the ${b.name} clinic`}
-                                            loading="lazy"
-                                            className="h-full w-full object-cover"
-                                        />
-                                    )}
-                                </div>
-                                <div className="mt-5 flex items-center justify-between gap-4">
-                                    <h3 className="text-2xl">{b.name}</h3>
-                                    <span
-                                        className={cn(
-                                            'inline-flex items-center gap-2 text-xs font-medium',
-                                            open
-                                                ? 'text-plum'
-                                                : 'text-muted-foreground',
-                                        )}
-                                    >
-                                        <span
-                                            aria-hidden="true"
-                                            className={cn(
-                                                'size-2',
-                                                open
-                                                    ? 'bg-violet'
-                                                    : 'bg-muted-foreground/40',
-                                            )}
-                                        />
-                                        {open ? 'Open now' : 'Closed now'}
-                                    </span>
-                                </div>
-                                <p className="mt-2 text-sm text-muted-foreground">
-                                    {b.address}, {b.city}
-                                </p>
-                                <dl className="mt-4 space-y-1 text-sm">
-                                    {Object.entries(b.hours ?? {}).map(
-                                        ([days, time]) => (
-                                            <div
-                                                key={days}
-                                                className="numerals flex justify-between border-b border-border py-1.5"
-                                            >
-                                                <dt className="text-muted-foreground">
-                                                    {days}
-                                                </dt>
-                                                <dd>{time}</dd>
-                                            </div>
-                                        ),
-                                    )}
-                                </dl>
-                                <div className="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-sm font-medium">
-                                    <Link
-                                        href={
-                                            book({ query: { branch: b.id } })
-                                                .url
-                                        }
-                                        className="text-plum hover:text-violet"
-                                    >
-                                        Book at {b.name}
-                                    </Link>
-                                    {b.phone && (
-                                        <a
-                                            href={`tel:${b.phone.replace(/\s/g, '')}`}
-                                            className="inline-flex items-center gap-1.5 text-muted-foreground hover:text-ink"
-                                        >
-                                            <Phone className="size-3.5" />{' '}
-                                            {b.phone}
-                                        </a>
-                                    )}
-                                </div>
-                            </article>
-                        );
-                    })}
-                </div>
-            </section>
-
-            {/* FAQ */}
-            <section
-                id="faq"
-                className="scroll-mt-20 border-t border-border px-4 py-20 sm:px-8 lg:px-12 lg:py-28"
-            >
-                <div className="grid gap-10 lg:grid-cols-12">
-                    <h2
-                        data-reveal
-                        className="text-4xl sm:text-5xl lg:col-span-4"
-                    >
-                        Questions, answered plainly
-                    </h2>
-                    <div className="divide-y divide-border border-y border-border lg:col-span-8">
-                        {faqs.map((f) => (
-                            <FaqItem key={f.id} faq={f} />
-                        ))}
-                    </div>
-                </div>
-            </section>
         </>
-    );
-}
-
-function FaqItem({ faq }: { faq: Faq }) {
-    const [open, setOpen] = useState(false);
-
-    return (
-        <div>
-            <h3>
-                <button
-                    type="button"
-                    aria-expanded={open}
-                    onClick={() => setOpen(!open)}
-                    className="flex w-full items-center justify-between gap-6 py-6 text-left text-lg font-semibold hover:text-plum"
-                >
-                    {faq.question}
-                    {open ? (
-                        <Minus className="size-5 shrink-0 text-plum" />
-                    ) : (
-                        <Plus className="size-5 shrink-0 text-plum" />
-                    )}
-                </button>
-            </h3>
-            <div
-                className={cn(
-                    'grid transition-[grid-template-rows] duration-200 ease-out',
-                    open ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]',
-                )}
-            >
-                <p
-                    className="max-w-2xl overflow-hidden pb-0 text-muted-foreground"
-                    style={{ paddingBottom: open ? '1.5rem' : 0 }}
-                >
-                    {faq.answer}
-                </p>
-            </div>
-        </div>
     );
 }
 
@@ -1015,7 +724,7 @@ function EnquiryBand({ treatments }: { treatments: Treatment[] }) {
                             className={cn(field, 'mt-1.5')}
                         />
                         {form.errors.first_name && (
-                            <p role="alert" className="mt-1 text-xs text-gold">
+                            <p role="alert" className="mt-1 text-xs text-champagne">
                                 {form.errors.first_name}
                             </p>
                         )}
@@ -1058,7 +767,7 @@ function EnquiryBand({ treatments }: { treatments: Treatment[] }) {
                             className={cn(field, 'mt-1.5')}
                         />
                         {form.errors.email && (
-                            <p role="alert" className="mt-1 text-xs text-gold">
+                            <p role="alert" className="mt-1 text-xs text-champagne">
                                 {form.errors.email}
                             </p>
                         )}
@@ -1127,7 +836,7 @@ function EnquiryBand({ treatments }: { treatments: Treatment[] }) {
                     {form.errors.privacy_consent && (
                         <p
                             role="alert"
-                            className="-mt-2 text-xs text-gold sm:col-span-2"
+                            className="-mt-2 text-xs text-champagne sm:col-span-2"
                         >
                             {form.errors.privacy_consent}
                         </p>

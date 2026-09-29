@@ -55,11 +55,11 @@ export default function TreatmentShow({
                 <div className="px-4 py-12 sm:px-8 lg:px-16 lg:py-20">
                     <Link
                         href={treatmentRoutes.index().url}
-                        className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-violet"
+                        className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-rose-ink"
                     >
                         <ArrowLeft className="size-4" /> All treatments
                     </Link>
-                    <p className="mt-8 text-sm text-violet">
+                    <p className="mt-8 text-sm text-rose-ink">
                         {t.category?.name}
                     </p>
                     <h1 className="mt-2 text-5xl leading-[1.05] sm:text-6xl">
@@ -184,7 +184,7 @@ export default function TreatmentShow({
                                     )}
                                 </div>
                                 <div className="numerals mt-4 flex items-baseline justify-between gap-4">
-                                    <h3 className="text-2xl group-hover:text-violet">
+                                    <h3 className="text-2xl group-hover:text-rose-ink">
                                         {r.name}
                                     </h3>
                                     <span className="font-display text-xl">

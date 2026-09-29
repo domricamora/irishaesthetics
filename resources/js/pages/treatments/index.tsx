@@ -23,28 +23,30 @@ export default function TreatmentsIndex({
             </Head>
 
             <section className="on-dark bg-plum px-4 pt-16 pb-14 text-white sm:px-8 lg:px-12 lg:pt-24">
-                <h1 className="max-w-3xl text-5xl leading-[1.05] sm:text-7xl">
-                    Treatments, <em className="text-gold">priced plainly.</em>
-                </h1>
-                <p className="mt-6 max-w-xl text-lg text-lilac">
-                    Every price below is the starting price for one session.
-                    Your doctor confirms the plan and total before anything
-                    begins.
-                </p>
-                <nav
-                    aria-label="Categories"
-                    className="mt-10 flex flex-wrap gap-2"
-                >
-                    {categories.map((c) => (
-                        <a
-                            key={c.id}
-                            href={`#${c.slug}`}
-                            className="press border border-white/25 px-4 py-2 text-sm hover:border-gold hover:text-gold"
-                        >
-                            {c.name}
-                        </a>
-                    ))}
-                </nav>
+                <div className="mx-auto max-w-7xl">
+                    <h1 className="max-w-3xl text-5xl leading-[1.05] sm:text-7xl">
+                        Treatments, <em className="text-champagne">priced plainly.</em>
+                    </h1>
+                    <p className="mt-6 max-w-xl text-lg text-lilac">
+                        Every price below is the starting price for one session.
+                        Your doctor confirms the plan and total before anything
+                        begins.
+                    </p>
+                    <nav
+                        aria-label="Categories"
+                        className="mt-10 flex flex-wrap gap-2"
+                    >
+                        {categories.map((c) => (
+                            <a
+                                key={c.id}
+                                href={`#${c.slug}`}
+                                className="press btn btn-outline px-4 py-2"
+                            >
+                                {c.name}
+                            </a>
+                        ))}
+                    </nav>
+                </div>
             </section>
 
             {categories.map((c, ci) => (
@@ -103,7 +105,7 @@ export default function TreatmentsIndex({
                                                     treatmentRoutes.show(t.slug)
                                                         .url
                                                 }
-                                                className="hover:text-violet"
+                                                className="hover:text-rose-ink"
                                             >
                                                 {t.name}
                                             </Link>
@@ -135,7 +137,7 @@ export default function TreatmentsIndex({
                                                     query: { treatment: t.id },
                                                 }).url
                                             }
-                                            className="press inline-flex items-center gap-1.5 text-sm font-medium text-violet hover:text-plum"
+                                            className="press inline-flex items-center gap-1.5 text-sm font-medium text-rose-ink hover:text-plum"
                                         >
                                             Book{' '}
                                             <ArrowRight className="size-4" />

@@ -32,18 +32,20 @@ export default function Promotions({ promotions, tiers }: Props) {
             </Head>
 
             <section className="on-dark bg-plum px-4 pt-16 pb-14 text-white sm:px-8 lg:px-12 lg:pt-24">
-                <p className="text-xs tracking-[0.2em] text-gold uppercase">
-                    Promotions
-                </p>
-                <h1 className="mt-4 max-w-4xl text-5xl leading-[1.05] sm:text-7xl">
-                    Offers, <em className="text-gold">written plainly.</em>
-                </h1>
-                <p className="mt-6 max-w-2xl text-lg text-lilac">
-                    Each offer below says what is included, what it costs and
-                    when it ends. No countdown timers, no conditions buried in
-                    small print, and every treatment still begins with an
-                    assessment.
-                </p>
+                <div className="mx-auto max-w-7xl">
+                    <p className="eyebrow">
+                        Promotions
+                    </p>
+                    <h1 className="mt-4 max-w-4xl text-5xl leading-[1.05] sm:text-7xl">
+                        Offers, <em className="text-champagne">written plainly.</em>
+                    </h1>
+                    <p className="mt-6 max-w-2xl text-lg text-lilac">
+                        Each offer below says what is included, what it costs and
+                        when it ends. No countdown timers, no conditions buried in
+                        small print, and every treatment still begins with an
+                        assessment.
+                    </p>
+                </div>
             </section>
 
             <section className="px-4 py-16 sm:px-8 lg:px-12 lg:py-20">
@@ -78,7 +80,7 @@ export default function Promotions({ promotions, tiers }: Props) {
                                 }
                             >
                                 {promo.badge && (
-                                    <span className="inline-block border border-gold px-2.5 py-1 text-xs text-gold-deep">
+                                    <span className="inline-block border border-gold px-2.5 py-1 text-xs text-rose-ink">
                                         {promo.badge}
                                     </span>
                                 )}
@@ -120,7 +122,7 @@ export default function Promotions({ promotions, tiers }: Props) {
                                                         promo.treatment.slug,
                                                     ).url
                                                 }
-                                                className="text-violet underline-offset-4 hover:underline"
+                                                className="text-rose-ink underline-offset-4 hover:underline"
                                             >
                                                 {promo.treatment.name}
                                             </Link>
@@ -156,7 +158,7 @@ export default function Promotions({ promotions, tiers }: Props) {
                             </p>
                             <Link
                                 href={membershipRoute().url}
-                                className="press mt-8 inline-flex items-center gap-2 border border-white/25 px-6 py-3 text-sm hover:border-gold hover:text-gold"
+                                className="press btn btn-outline mt-8"
                             >
                                 Compare memberships{' '}
                                 <ArrowRight className="size-4" />
@@ -191,7 +193,7 @@ export default function Promotions({ promotions, tiers }: Props) {
                         dates. The general rules are in our{' '}
                         <Link
                             href={legal('terms').url}
-                            className="text-violet underline-offset-4 hover:underline"
+                            className="text-rose-ink underline-offset-4 hover:underline"
                         >
                             terms of service
                         </Link>

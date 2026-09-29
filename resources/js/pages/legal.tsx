@@ -28,22 +28,24 @@ export default function LegalPage({ page, others }: Props) {
             </Head>
 
             <section className="on-dark bg-plum px-4 pt-16 pb-12 text-white sm:px-8 lg:px-12 lg:pt-24">
-                <p className="text-xs tracking-[0.2em] text-gold uppercase">
-                    {page.summary ? 'The detail' : 'Clinic policy'}
-                </p>
-                <h1 className="mt-4 max-w-3xl text-5xl leading-[1.05] sm:text-6xl">
-                    {page.title}
-                </h1>
-                {page.summary && (
-                    <p className="mt-6 max-w-2xl text-lg text-lilac">
-                        {page.summary}
+                <div className="mx-auto max-w-7xl">
+                    <p className="eyebrow">
+                        {page.summary ? 'The detail' : 'Clinic policy'}
                     </p>
-                )}
-                {page.reviewed_on && (
-                    <p className="numerals mt-6 text-sm text-lilac">
-                        Last reviewed {reviewed(page.reviewed_on)}
-                    </p>
-                )}
+                    <h1 className="mt-4 max-w-3xl text-5xl leading-[1.05] sm:text-6xl">
+                        {page.title}
+                    </h1>
+                    {page.summary && (
+                        <p className="mt-6 max-w-2xl text-lg text-lilac">
+                            {page.summary}
+                        </p>
+                    )}
+                    {page.reviewed_on && (
+                        <p className="numerals mt-6 text-sm text-lilac">
+                            Last reviewed {reviewed(page.reviewed_on)}
+                        </p>
+                    )}
+                </div>
             </section>
 
             <section className="grid gap-12 px-4 py-16 sm:px-8 lg:grid-cols-12 lg:px-12 lg:py-20">
@@ -81,7 +83,7 @@ export default function LegalPage({ page, others }: Props) {
                                 <li key={other.id}>
                                     <Link
                                         href={legal(other.slug).url}
-                                        className="text-violet underline-offset-4 hover:underline"
+                                        className="text-rose-ink underline-offset-4 hover:underline"
                                     >
                                         {other.title}
                                     </Link>
@@ -90,7 +92,7 @@ export default function LegalPage({ page, others }: Props) {
                             <li>
                                 <Link
                                     href={contact().url}
-                                    className="text-violet underline-offset-4 hover:underline"
+                                    className="text-rose-ink underline-offset-4 hover:underline"
                                 >
                                     Contact the clinic
                                 </Link>

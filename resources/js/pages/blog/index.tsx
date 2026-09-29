@@ -45,19 +45,21 @@ export default function BlogIndex({ posts, filter, categories }: Props) {
             </Head>
 
             <section className="on-dark bg-plum px-4 pt-16 pb-14 text-white sm:px-8 lg:px-12 lg:pt-24">
-                <p className="text-xs tracking-[0.2em] text-gold uppercase">
-                    Journal
-                </p>
-                <h1 className="mt-4 max-w-4xl text-5xl leading-[1.05] sm:text-7xl">
-                    Notes from the{' '}
-                    <em className="text-gold">treatment room.</em>
-                </h1>
-                <p className="mt-6 max-w-2xl text-lg text-lilac">
-                    Guidance written by our practitioners: what a treatment
-                    involves, how to care for your skin afterwards, and when a
-                    result is worth judging. General information only, not a
-                    diagnosis.
-                </p>
+                <div className="mx-auto max-w-7xl">
+                    <p className="eyebrow">
+                        Journal
+                    </p>
+                    <h1 className="mt-4 max-w-4xl text-5xl leading-[1.05] sm:text-7xl">
+                        Notes from the{' '}
+                        <em className="text-champagne">treatment room.</em>
+                    </h1>
+                    <p className="mt-6 max-w-2xl text-lg text-lilac">
+                        Guidance written by our practitioners: what a treatment
+                        involves, how to care for your skin afterwards, and when a
+                        result is worth judging. General information only, not a
+                        diagnosis.
+                    </p>
+                </div>
             </section>
 
             <nav
@@ -119,13 +121,13 @@ export default function BlogIndex({ posts, filter, categories }: Props) {
                             </Link>
                         )}
                         <div>
-                            <p className="text-xs tracking-wide text-violet uppercase">
+                            <p className="eyebrow">
                                 {first.category}
                             </p>
                             <h2 className="mt-3 text-3xl sm:text-4xl">
                                 <Link
                                     href={blogRoutes.show(first.slug).url}
-                                    className="hover:text-violet"
+                                    className="hover:text-rose-ink"
                                 >
                                     {first.title}
                                 </Link>
@@ -166,13 +168,13 @@ export default function BlogIndex({ posts, filter, categories }: Props) {
                                         />
                                     </Link>
                                 )}
-                                <p className="mt-4 text-xs tracking-wide text-violet uppercase">
+                                <p className="mt-4 eyebrow">
                                     {post.category}
                                 </p>
                                 <h2 className="mt-2 text-2xl">
                                     <Link
                                         href={blogRoutes.show(post.slug).url}
-                                        className="hover:text-violet"
+                                        className="hover:text-rose-ink"
                                     >
                                         {post.title}
                                     </Link>

@@ -15,35 +15,100 @@ import type { Clinic } from '@/types';
  * round: the mark is drawn on every page, and the WebP is a third of the bytes
  * for the browsers that can read it, which is all of them that matter.
  */
+/**
+ * The clinic's own mark, as the file they supplied, with the name set beside
+ * it as a lockup.
+ *
+ * The mark's own artwork carries the name, so this repeats it -- which is why
+ * the image is marked decorative whenever the name is also in text. Leaving
+ * the alt text in would have a screen reader announce the name twice; letting
+ * callers turn the text off without also turning the alt off would leave a
+ * silent logo on the icon-only sidebar, where there is no visible name to
+ * fall back on.
+ */
 export default function Wordmark({
+    name,
     descriptor,
     className,
     markClassName,
+    nameClassName,
 }: {
+    /**
+     * Set this to collapse the lockup to a single line, which is what the
+     * admin rail wants: a 256px column cannot carry the script name and the
+     * tracked descriptor without either wrapping or dropping to a size that
+     * the script stops reading at. Left unset, the name is split out of
+     * `clinic.name` and set as the full two-line lockup.
+     */
+    name?: string | null;
     descriptor?: string;
     className?: string;
     markClassName?: string;
+    nameClassName?: string;
 }) {
     const { clinic } = usePage<{ clinic: Clinic }>().props;
 
+    // "Irish Aesthetics and Beauty Lounge" minus the short name leaves the
+    // half that wants setting in small caps, so the split follows the config
+    // rather than being written out here. A brand whose short name is not a
+    // prefix of its full name simply gets the whole name on the top line.
+    const split =
+        name === undefined
+            ? clinic.name.startsWith(clinic.short_name)
+                ? {
+                      script: clinic.short_name,
+                      caps: clinic.name.slice(clinic.short_name.length).trim(),
+                  }
+                : { script: clinic.name, caps: '' }
+            : { script: name ?? '', caps: '' };
+
+    const mark = (
+        <picture>
+            <source srcSet={clinic.logo} type="image/webp" />
+            <img
+                src={clinic.logo_fallback}
+                // Decorative once the name is in text beside it; the name is
+                // the accessible label, and this keeps it announced once.
+                alt={split.script ? '' : clinic.name}
+                width={256}
+                height={256}
+                decoding="async"
+                className={cn('size-10 shrink-0', markClassName)}
+            />
+        </picture>
+    );
+
+    if (!split.script) {
+        return <span className={cn('inline-flex items-center', className)}>{mark}</span>;
+    }
+
     return (
         <span className={cn('inline-flex items-center gap-3', className)}>
-            <picture>
-                <source srcSet={clinic.logo} type="image/webp" />
-                <img
-                    src={clinic.logo_fallback}
-                    alt={clinic.name}
-                    width={256}
-                    height={256}
-                    decoding="async"
-                    className={cn('size-10 shrink-0', markClassName)}
-                />
-            </picture>
-            {descriptor && (
-                <span className="text-[9px] tracking-[0.28em] uppercase opacity-75">
-                    {descriptor}
+            {mark}
+            <span className="flex min-w-0 flex-col">
+                <span
+                    className={cn(
+                        'font-script text-[1.7rem] leading-[0.85] tracking-normal',
+                        nameClassName,
+                    )}
+                >
+                    {split.script}
                 </span>
-            )}
+                {split.caps && (
+                    // Tracked-out small caps under a script is the pairing the
+                    // reference uses: the script carries the personality and
+                    // the caps carry the information, so the words still read
+                    // when the flourish stops working.
+                    <span className="mt-1.5 font-sans text-[0.5rem] leading-none font-medium tracking-[0.18em] text-foreground/70 uppercase">
+                        {split.caps}
+                    </span>
+                )}
+                {descriptor && (
+                    <span className="mt-1 text-[9px] tracking-[0.28em] uppercase opacity-75">
+                        {descriptor}
+                    </span>
+                )}
+            </span>
         </span>
     );
 }

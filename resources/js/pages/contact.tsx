@@ -45,31 +45,33 @@ export default function Contact({ branches, treatments }: Props) {
             </Head>
 
             <section className="on-dark bg-plum px-4 pt-16 pb-14 text-white sm:px-8 lg:px-12 lg:pt-24">
-                <p className="text-xs tracking-[0.2em] text-gold uppercase">
-                    Contact
-                </p>
-                <h1 className="mt-4 max-w-4xl text-5xl leading-[1.05] sm:text-7xl">
-                    Talk to us before you{' '}
-                    <em className="text-gold">decide anything.</em>
-                </h1>
-                <p className="mt-6 max-w-2xl text-lg text-lilac">
-                    Call the branch, send a message, or book a consultation
-                    straight from the calendar. A clinician answers clinical
-                    questions; the front desk handles everything else.
-                </p>
-                <div className="mt-10 flex flex-wrap items-center gap-6 text-sm">
-                    <a
-                        href={`tel:${clinic.contact.phone.replace(/\s/g, '')}`}
-                        className="text-white hover:text-gold"
-                    >
-                        {clinic.contact.phone}
-                    </a>
-                    <a
-                        href={`mailto:${clinic.contact.email}`}
-                        className="text-white hover:text-gold"
-                    >
-                        {clinic.contact.email}
-                    </a>
+                <div className="mx-auto max-w-7xl">
+                    <p className="eyebrow">
+                        Contact
+                    </p>
+                    <h1 className="mt-4 max-w-4xl text-5xl leading-[1.05] sm:text-7xl">
+                        Talk to us before you{' '}
+                        <em className="text-champagne">decide anything.</em>
+                    </h1>
+                    <p className="mt-6 max-w-2xl text-lg text-lilac">
+                        Call the branch, send a message, or book a consultation
+                        straight from the calendar. A clinician answers clinical
+                        questions; the front desk handles everything else.
+                    </p>
+                    <div className="mt-10 flex flex-wrap items-center gap-6 text-sm">
+                        <a
+                            href={`tel:${clinic.contact.phone.replace(/\s/g, '')}`}
+                            className="text-white hover:text-champagne"
+                        >
+                            {clinic.contact.phone}
+                        </a>
+                        <a
+                            href={`mailto:${clinic.contact.email}`}
+                            className="text-white hover:text-champagne"
+                        >
+                            {clinic.contact.email}
+                        </a>
+                </div>
                 </div>
             </section>
 
@@ -225,7 +227,7 @@ export default function Contact({ branches, treatments }: Props) {
                                 I agree to the{' '}
                                 <Link
                                     href={legal('privacy-policy').url}
-                                    className="text-violet underline-offset-4 hover:underline"
+                                    className="text-rose-ink underline-offset-4 hover:underline"
                                 >
                                     privacy policy
                                 </Link>{' '}
@@ -277,7 +279,7 @@ export default function Contact({ branches, treatments }: Props) {
                                             <p className="mt-2 text-sm">
                                                 <a
                                                     href={`tel:${branch.phone.replace(/\s/g, '')}`}
-                                                    className="text-violet underline-offset-4 hover:underline"
+                                                    className="text-rose-ink underline-offset-4 hover:underline"
                                                 >
                                                     {branch.phone}
                                                 </a>
@@ -287,7 +289,7 @@ export default function Contact({ branches, treatments }: Props) {
                                             <p className="mt-1 text-sm">
                                                 <a
                                                     href={`mailto:${branch.email}`}
-                                                    className="text-violet underline-offset-4 hover:underline"
+                                                    className="text-rose-ink underline-offset-4 hover:underline"
                                                 >
                                                     {branch.email}
                                                 </a>
@@ -322,7 +324,7 @@ export default function Contact({ branches, treatments }: Props) {
                                                     href={branch.map_url}
                                                     target="_blank"
                                                     rel="noreferrer"
-                                                    className="self-center text-violet underline-offset-4 hover:underline"
+                                                    className="self-center text-rose-ink underline-offset-4 hover:underline"
                                                 >
                                                     Directions
                                                 </a>

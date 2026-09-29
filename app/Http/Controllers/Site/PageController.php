@@ -22,14 +22,15 @@ class PageController extends Controller
 {
     public function home(): Response
     {
+        // Only what the page still renders. The specialist and FAQ queries
+        // were dropped along with those sections; both remain on the pages
+        // that do show them, so the data is not gone, only not fetched here.
         return Inertia::render('home', [
             'categories' => TreatmentCategory::orderBy('sort')->withCount(['treatments'])->get(['id', 'name', 'slug', 'description', 'image']),
             'featured' => $this->activeTreatments()->where('is_featured', true)->get(),
             'bookable' => $this->activeTreatments()->get(),
-            'specialists' => $this->specialists(),
             'branches' => $this->branches(),
             'testimonials' => Testimonial::where('is_published', true)->latest('id')->get(['id', 'author_name', 'author_meta', 'quote', 'rating']),
-            'faqs' => Faq::orderBy('sort')->get(['id', 'question', 'answer']),
         ]);
     }
 

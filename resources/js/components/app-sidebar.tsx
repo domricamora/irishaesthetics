@@ -186,9 +186,19 @@ export function AppSidebar() {
                                 prefetch
                                 aria-label={`${clinic.short_name} dashboard`}
                             >
+                                {/*
+                                    The short name, not the full one: the rail is
+                                    256px wide and already carries the "Clinic
+                                    desk" descriptor. The collapse rule hides
+                                    whichever span is last, so the name goes
+                                    with the descriptor and leaves the mark
+                                    alone when the rail is collapsed to icons.
+                                */}
                                 <Wordmark
+                                    name={clinic.short_name}
                                     descriptor="Clinic desk"
                                     markClassName="size-8"
+                                    nameClassName="text-[1.35rem]"
                                     className="group-data-[collapsible=icon]:[&>span:last-child]:hidden"
                                 />
                             </Link>

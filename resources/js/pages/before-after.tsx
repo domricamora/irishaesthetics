@@ -27,19 +27,21 @@ export default function BeforeAfterPage({ cases }: { cases: CompareCase[] }) {
             </Head>
 
             <section className="on-dark bg-plum px-4 pt-16 pb-14 text-white sm:px-8 lg:px-12 lg:pt-24">
-                <p className="text-xs tracking-[0.2em] text-gold uppercase">
-                    Before and after
-                </p>
-                <h1 className="mt-4 max-w-4xl text-5xl leading-[1.05] sm:text-7xl">
-                    What changes, and{' '}
-                    <em className="text-gold">what to expect.</em>
-                </h1>
-                <p className="mt-6 max-w-2xl text-lg text-lilac">
-                    Drag the handle to compare. The images here are licensed
-                    stock photographs, not patient results, and your clinician
-                    will show you relevant cases in person during your
-                    consultation.
-                </p>
+                <div className="mx-auto max-w-7xl">
+                    <p className="eyebrow">
+                        Before and after
+                    </p>
+                    <h1 className="mt-4 max-w-4xl text-5xl leading-[1.05] sm:text-7xl">
+                        What changes, and{' '}
+                        <em className="text-champagne">what to expect.</em>
+                    </h1>
+                    <p className="mt-6 max-w-2xl text-lg text-lilac">
+                        Drag the handle to compare. The images here are licensed
+                        stock photographs, not patient results, and your clinician
+                        will show you relevant cases in person during your
+                        consultation.
+                    </p>
+                </div>
             </section>
 
             <section className="px-4 py-14 sm:px-8 lg:px-12">
@@ -73,7 +75,7 @@ export default function BeforeAfterPage({ cases }: { cases: CompareCase[] }) {
                             <h2 className="mt-4 text-2xl">
                                 <Link
                                     href={treatmentRoutes.show(item.slug).url}
-                                    className="hover:text-violet"
+                                    className="hover:text-rose-ink"
                                 >
                                     {item.name}
                                 </Link>

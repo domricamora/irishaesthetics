@@ -46,36 +46,38 @@ export default function Membership({ tiers, branches, faqs }: Props) {
             </Head>
 
             <section className="on-dark bg-plum px-4 pt-16 pb-14 text-white sm:px-8 lg:px-12 lg:pt-24">
-                <p className="text-xs tracking-[0.2em] text-gold uppercase">
-                    Membership
-                </p>
-                <h1 className="mt-4 max-w-4xl text-5xl leading-[1.05] sm:text-7xl">
-                    Skin that stays on track,{' '}
-                    <em className="text-gold">month by month.</em>
-                </h1>
-                <p className="mt-6 max-w-2xl text-lg text-lilac">
-                    A membership turns treatment into a rhythm: a monthly
-                    allowance, member pricing and priority appointment times.
-                    Cancel any month, at any branch, without a fee.
-                </p>
-                <div className="mt-10 flex flex-wrap gap-3">
-                    <Link
-                        href={book().url}
-                        className="press inline-flex items-center gap-2 bg-gold px-6 py-3 text-sm font-medium text-ink hover:bg-white"
-                    >
-                        Book a visit first <ArrowRight className="size-4" />
-                    </Link>
-                    <Link
-                        href={contact().url}
-                        className="press inline-flex items-center gap-2 border border-white/25 px-6 py-3 text-sm hover:border-gold hover:text-gold"
-                    >
-                        Ask about joining
-                    </Link>
+                <div className="mx-auto max-w-7xl">
+                    <p className="eyebrow">
+                        Membership
+                    </p>
+                    <h1 className="mt-4 max-w-4xl text-5xl leading-[1.05] sm:text-7xl">
+                        Skin that stays on track,{' '}
+                        <em className="text-champagne">month by month.</em>
+                    </h1>
+                    <p className="mt-6 max-w-2xl text-lg text-lilac">
+                        A membership turns treatment into a rhythm: a monthly
+                        allowance, member pricing and priority appointment times.
+                        Cancel any month, at any branch, without a fee.
+                    </p>
+                    <div className="mt-10 flex flex-wrap gap-3">
+                        <Link
+                            href={book().url}
+                            className="press btn btn-solid"
+                        >
+                            Book a visit first <ArrowRight className="size-4" />
+                        </Link>
+                        <Link
+                            href={contact().url}
+                            className="press btn btn-outline"
+                        >
+                            Ask about joining
+                        </Link>
                 </div>
                 <p className="mt-6 text-sm text-lilac">
                     GCash, Maya, bank transfer and cards accepted. No joining
                     fee, no lock in.
                 </p>
+                </div>
             </section>
 
             <section className="px-4 py-16 sm:px-8 lg:px-12 lg:py-20">
@@ -95,7 +97,7 @@ export default function Membership({ tiers, branches, faqs }: Props) {
                             <div className="flex items-center justify-between gap-4">
                                 <h2 className="text-3xl">{tier.name}</h2>
                                 {tier.is_featured && (
-                                    <span className="border border-gold px-2 py-1 text-xs text-gold">
+                                    <span className="border border-gold px-2 py-1 text-xs text-champagne">
                                         Most taken
                                     </span>
                                 )}
@@ -128,8 +130,8 @@ export default function Membership({ tiers, branches, faqs }: Props) {
                                             className={cn(
                                                 'mt-0.5 size-4 shrink-0',
                                                 tier.is_featured
-                                                    ? 'text-gold'
-                                                    : 'text-violet',
+                                                    ? 'text-champagne'
+                                                    : 'text-rose-ink',
                                             )}
                                             aria-hidden
                                         />
@@ -215,14 +217,14 @@ export default function Membership({ tiers, branches, faqs }: Props) {
                             message. The membership terms sit in our{' '}
                             <Link
                                 href={legal('terms').url}
-                                className="text-violet underline-offset-4 hover:underline"
+                                className="text-rose-ink underline-offset-4 hover:underline"
                             >
                                 terms of service
                             </Link>{' '}
                             and{' '}
                             <Link
                                 href={legal('privacy-policy').url}
-                                className="text-violet underline-offset-4 hover:underline"
+                                className="text-rose-ink underline-offset-4 hover:underline"
                             >
                                 privacy policy
                             </Link>

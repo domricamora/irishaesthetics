@@ -31,7 +31,7 @@ export default function BlogShow({ post, related }: Props) {
 
             <article>
                 <header className="on-dark bg-plum px-4 pt-16 pb-12 text-white sm:px-8 lg:px-12 lg:pt-24">
-                    <p className="text-xs tracking-wide text-gold uppercase">
+                    <p className="eyebrow">
                         {post.category}
                     </p>
                     <h1 className="mt-4 max-w-4xl text-4xl leading-[1.1] sm:text-6xl">
@@ -92,7 +92,7 @@ export default function BlogShow({ post, related }: Props) {
                             and the record we keep for you.{' '}
                             <Link
                                 href={legal('terms').url}
-                                className="text-violet underline-offset-4 hover:underline"
+                                className="text-rose-ink underline-offset-4 hover:underline"
                             >
                                 Terms
                             </Link>
@@ -129,7 +129,7 @@ export default function BlogShow({ post, related }: Props) {
                         <h2 className="text-3xl">More from the journal</h2>
                         <Link
                             href={blogRoutes.index().url}
-                            className="text-sm text-violet underline-offset-4 hover:underline"
+                            className="text-sm text-rose-ink underline-offset-4 hover:underline"
                         >
                             All notes
                         </Link>
@@ -149,13 +149,13 @@ export default function BlogShow({ post, related }: Props) {
                                         className="aspect-[4/3] w-full object-cover"
                                     />
                                 )}
-                                <p className="mt-4 text-xs tracking-wide text-violet uppercase">
+                                <p className="mt-4 eyebrow">
                                     {item.category}
                                 </p>
                                 <h3 className="mt-2 text-xl">
                                     <Link
                                         href={blogRoutes.show(item.slug).url}
-                                        className="hover:text-violet"
+                                        className="hover:text-rose-ink"
                                     >
                                         {item.title}
                                     </Link>

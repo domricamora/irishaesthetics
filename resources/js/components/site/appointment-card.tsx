@@ -19,6 +19,16 @@ type Props = {
     treatments: Treatment[];
     branches: Branch[];
     className?: string;
+    /**
+     * Lay the card out across a wide band instead of stacking it in a column.
+     *
+     * The controls are sized for a narrow card: three branches side by side,
+     * seven days, three times. Stretched across a full-width section on their
+     * own that turns the time buttons into three enormous slabs, so wide
+     * mode moves the "what and when" half into a second column and lets the
+     * grids keep their natural width.
+     */
+    wide?: boolean;
 };
 
 const dayFormat = new Intl.DateTimeFormat('en-PH', { weekday: 'short' });
@@ -31,6 +41,7 @@ export default function AppointmentCard({
     treatments,
     branches,
     className,
+    wide = false,
 }: Props) {
     const [draft, setDraft] = useCardDraft();
     const days = useMemo(() => upcomingDays(7), []);
@@ -100,14 +111,23 @@ export default function AppointmentCard({
             aria-labelledby="card-title"
             className={cn('card-stock w-full p-6 text-ink sm:p-7', className)}
         >
-            <div className="flex items-baseline justify-between gap-4">
-                <h2 id="card-title" className="text-2xl font-semibold">
-                    Your consultation
-                </h2>
-                <span className="border border-dashed border-plum/40 px-2 py-0.5 text-xs text-plum">
-                    Draft
-                </span>
-            </div>
+            {/* In wide mode the heading, the progress and the treatment choice
+                sit in their own column, and the day/time half sits beside
+                them, so a full-width band does not stretch every control. */}
+            <div
+                className={cn(
+                    wide && 'grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:gap-12',
+                )}
+            >
+                <div className={cn(wide && 'min-w-0')}>
+                    <div className="flex items-baseline justify-between gap-4">
+                        <h2 id="card-title" className="text-2xl font-semibold">
+                            Your consultation
+                        </h2>
+                        <span className="border border-dashed border-plum/40 px-2 py-0.5 text-xs text-plum">
+                            Draft
+                        </span>
+                    </div>
 
             <ol
                 className="mt-5 grid grid-cols-4 gap-2"
@@ -177,7 +197,9 @@ export default function AppointmentCard({
                 <span aria-hidden="true">·</span>
                 <span>{formatDuration(treatment.duration_minutes)}</span>
             </p>
+                </div>
 
+                <div className={cn(wide && 'min-w-0')}>
             <fieldset className="mt-5">
                 <legend className="text-xs font-medium text-muted-foreground">
                     Branch
@@ -300,6 +322,8 @@ export default function AppointmentCard({
                 See every time and choose a doctor{' '}
                 <ArrowRight className="size-4" />
             </Link>
+                </div>
+            </div>
         </section>
     );
 }

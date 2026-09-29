@@ -61,32 +61,34 @@ export default function About({
             </Head>
 
             <section className="on-dark bg-plum px-4 pt-16 pb-14 text-white sm:px-8 lg:px-12 lg:pt-24">
-                <p className="text-xs tracking-[0.2em] text-gold uppercase">
-                    About
-                </p>
-                <h1 className="mt-4 max-w-4xl text-5xl leading-[1.05] sm:text-7xl">
-                    A clinic built around the{' '}
-                    <em className="text-gold">assessment</em>, not the upsell.
-                </h1>
-                <p className="mt-6 max-w-2xl text-lg text-lilac">
-                    {clinic.name} is a physician-led aesthetic and wellness
-                    clinic. {clinic.tagline} We plan treatment around your skin,
-                    your history and your calendar, and we say plainly when a
-                    treatment is not for you.
-                </p>
-                <div className="mt-10 flex flex-wrap gap-3">
-                    <Link
-                        href={book().url}
-                        className="press inline-flex items-center gap-2 bg-gold px-6 py-3 text-sm font-medium text-ink hover:bg-white"
-                    >
-                        Book a consultation <ArrowRight className="size-4" />
-                    </Link>
-                    <Link
-                        href={treatmentRoutes.index().url}
-                        className="press inline-flex items-center gap-2 border border-white/25 px-6 py-3 text-sm hover:border-gold hover:text-gold"
-                    >
-                        Treatments and prices
-                    </Link>
+                <div className="mx-auto max-w-7xl">
+                    <p className="eyebrow">
+                        About
+                    </p>
+                    <h1 className="mt-4 max-w-4xl text-5xl leading-[1.05] sm:text-7xl">
+                        A clinic built around the{' '}
+                        <em className="text-champagne">assessment</em>, not the upsell.
+                    </h1>
+                    <p className="mt-6 max-w-2xl text-lg text-lilac">
+                        {clinic.name} is a physician-led aesthetic and wellness
+                        clinic. {clinic.tagline} We plan treatment around your skin,
+                        your history and your calendar, and we say plainly when a
+                        treatment is not for you.
+                    </p>
+                    <div className="mt-10 flex flex-wrap gap-3">
+                        <Link
+                            href={book().url}
+                            className="press btn btn-solid"
+                        >
+                            Book a consultation <ArrowRight className="size-4" />
+                        </Link>
+                        <Link
+                            href={treatmentRoutes.index().url}
+                            className="press btn btn-outline"
+                        >
+                            Treatments and prices
+                        </Link>
+                </div>
                 </div>
             </section>
 
@@ -174,7 +176,7 @@ export default function About({
                                 />
                             )}
                             <h3 className="mt-5 text-2xl">{s.name}</h3>
-                            <p className="mt-1 text-sm text-violet">
+                            <p className="mt-1 text-sm text-rose-ink">
                                 {s.title}
                             </p>
                             {s.credentials && (
@@ -218,7 +220,7 @@ export default function About({
                                 <p className="mt-1 text-sm">
                                     <a
                                         href={`tel:${b.phone.replace(/\s/g, '')}`}
-                                        className="hover:text-violet"
+                                        className="hover:text-rose-ink"
                                     >
                                         {b.phone}
                                     </a>

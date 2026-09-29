@@ -131,13 +131,15 @@ export default function Book({
             <Head title="Book a consultation" />
 
             <section className="on-dark bg-plum px-4 pt-14 pb-12 text-white sm:px-8 lg:px-12">
-                <h1 className="text-5xl leading-[1.05] sm:text-6xl">
-                    Book your <em className="text-gold">visit.</em>
-                </h1>
-                <p className="mt-4 max-w-xl text-lilac">
-                    No account needed. We confirm by SMS within the hour during
-                    clinic hours.
-                </p>
+                <div className="mx-auto max-w-7xl">
+                    <h1 className="text-5xl leading-[1.05] sm:text-6xl">
+                        Book your <em className="text-champagne">visit.</em>
+                    </h1>
+                    <p className="mt-4 max-w-xl text-lilac">
+                        No account needed. We confirm by SMS within the hour during
+                        clinic hours.
+                    </p>
+                </div>
             </section>
 
             <form
@@ -614,7 +616,7 @@ function Step({
     return (
         <fieldset>
             <legend className="flex items-baseline gap-3">
-                <span className="numerals font-display text-lg text-gold-deep">
+                <span className="numerals font-display text-lg text-rose-ink">
                     {n}
                 </span>
                 <span className="font-display text-3xl">{title}</span>
@@ -652,7 +654,7 @@ function Choice({
         >
             {selected && (
                 <Check
-                    className="absolute top-3 right-3 size-4 text-gold"
+                    className="absolute top-3 right-3 size-4 text-champagne"
                     aria-hidden="true"
                 />
             )}
