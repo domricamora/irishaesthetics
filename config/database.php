@@ -55,7 +55,23 @@ return [
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => env('DB_CHARSET', 'utf8mb4'),
             'collation' => env('DB_COLLATION', 'utf8mb4_unicode_ci'),
-            'prefix' => '',
+            /*
+             * A table prefix lets two installations share one MySQL database
+             * without sharing data.
+             *
+             * It exists because a shared host grants the account rights on a
+             * single database, so a second site cannot be given one of its
+             * own. The prefix gives that site its own tables -- and because
+             * sessions, cache and the queue are all database-backed here, its
+             * own copies of those too.
+             *
+             * It is not the same as a separate database: both installations
+             * still share a backup, a disk quota and a schema history, so a
+             * migration run against one is not a migration run against the
+             * other. Where the host will grant a second database, use that
+             * instead and leave this empty.
+             */
+            'prefix' => env('DB_PREFIX', ''),
             'prefix_indexes' => true,
             'strict' => true,
             'engine' => null,
