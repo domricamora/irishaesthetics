@@ -69,7 +69,14 @@ return new class extends Migration
 
     public function down(): void
     {
-        $this->renameOrganization(self::OLD_SLUG, self::NEW_SLUG);
+        // The arguments are (from, to), so undoing the rename means starting
+        // from the slug this migration put there -- NEW_SLUG -- and moving it
+        // back to OLD_SLUG. Passing them in the same order as up() (which was
+        // the bug here) searches for the OLD slug, matches no rows, and leaves
+        // the organization called Irish after a rollback that reported itself
+        // as successful. The site then cannot resolve its own organization and
+        // every page that reads it goes down.
+        $this->renameOrganization(self::NEW_SLUG, self::OLD_SLUG);
         $this->renameCopy(true);
         $this->renameDemoEmails(true);
     }

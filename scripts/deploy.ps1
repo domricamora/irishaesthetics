@@ -13,7 +13,7 @@
 
     and the live one is
 
-        https://patrice.deskpulse.click
+        https://irish.deskpulse.click
 
     A plain `npm run build` therefore produces a bundle whose every nav link
     points at /aesthetic/public/... and the whole site 404s on click, while
@@ -27,8 +27,8 @@
 param(
     [string]$Host_ = 'htrjymuo@ck.deskpulse.click',
     [int]$Port = 9022,
-    [string]$Remote = '~/public_html/patrice.deskpulse.click',
-    [string]$AppUrl = 'https://patrice.deskpulse.click',
+    [string]$Remote = '~/public_html/irish.deskpulse.click',
+    [string]$AppUrl = 'https://irish.deskpulse.click',
     # OpenSSH refuses a key that anyone but you can read. If yours trips that
     # on Windows, point at a copy with clean permissions.
     [string]$IdentityFile = ''
@@ -36,6 +36,51 @@ param(
 
 $ErrorActionPreference = 'Stop'
 Set-Location (Join-Path $PSScriptRoot '..')
+
+# Which site is this? Read it from the repository rather than trusting the
+# command line.
+#
+# This repository was forked from the Patrice clinic codebase, and that fork
+# originally shipped with this script still pointing at
+# ~/public_html/patrice.deskpulse.click. Running it here published the Irish
+# build over the Patrice site and applied this repository's rebrand migration
+# to the Patrice database. Defaults alone did not stop it, so the target is
+# now checked against the slug in config/clinic.php -- the one value that
+# cannot be wrong about which brand this repository is -- and a mismatch
+# stops the deploy before anything is uploaded.
+$slug = (Select-String -Path config\clinic.php `
+    -Pattern "'organization' => env\('CLINIC_ORGANIZATION', '([^']+)'\)"
+).Matches[0].Groups[1].Value
+
+if (-not $slug) { throw 'Could not read the organization slug from config/clinic.php.' }
+
+$expected = "https://$slug.deskpulse.click"
+
+Write-Host "This repository is the '$slug' site; it may only deploy to $expected"
+
+if ($AppUrl.TrimEnd('/') -ne $expected) {
+    throw @"
+Refusing to deploy. This is the '$slug' repository, so the live URL must be
+    $expected
+but the target is
+    $AppUrl
+
+Publishing this build to a different site overwrites that site's files and
+runs this repository's migrations against that site's database. If you mean
+to deploy a different clinic, open that project's own repository and run its
+deploy script.
+"@
+}
+
+if ($Remote.TrimEnd('/') -notlike "*/public_html/$slug.deskpulse.click") {
+    throw @"
+Refusing to deploy. This is the '$slug' repository, so the remote folder must
+be
+    ~/public_html/$slug.deskpulse.click
+but the target is
+    $Remote
+"@
+}
 
 $Ssh = @('-F', 'none', '-p', $Port)
 if ($IdentityFile) { $Ssh += @('-i', $IdentityFile) }

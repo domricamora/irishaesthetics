@@ -41,10 +41,11 @@ Updated 2026-09-29 (session saved after the chat and dashboard-analytics work).
 
 ## Live
 
-- https://patrice.deskpulse.click (server `ssh ck-live`, folder `~/public_html/patrice.deskpulse.click`, PHP `/opt/cpanel/ea-php83/root/usr/bin/php`, DB `htrjymuo_patrice`). Server keeps its own `.env` (never overwrite).
+- https://irish.deskpulse.click (server `ssh ck-live`, folder `~/public_html/irish.deskpulse.click`, PHP `/opt/cpanel/ea-php83/root/usr/bin/php`, DB `htrjymuo_irish`). Server keeps its own `.env` (never overwrite).
 - Root `.htaccess` = cPanel php block + repo `.htaccess` (routes into `public/`, blocks source/dotfiles, re-asserts CSP).
-- **Deploy an update:** `APP_URL=https://patrice.deskpulse.click npm run build` → tar over ssh (exclude .env .git node_modules tests storage logs) → on server `php artisan migrate --force && php artisan optimize`. Then rebuild locally with `MSYS_NO_PATHCONV=1 ASSET_URL=/aesthetic/public npm run build`.
-- A test booking "Demo" (PT-V4BLBH) exists on live.
+- **Deploy an update:** `APP_URL=https://irish.deskpulse.click npm run build` → tar over ssh (exclude .env .git node_modules tests storage logs) → on server `php artisan migrate --force && php artisan optimize`. Then rebuild locally with `MSYS_NO_PATHCONV=1 ASSET_URL=/irish/public npm run build`.
+- `scripts/deploy.ps1` refuses to run if the target does not match the `CLINIC_ORGANIZATION` slug in `config/clinic.php`. This repo is a fork of the Patrice clinic codebase and once shipped a copy of that script still pointing at `~/public_html/patrice.deskpulse.click`; running it here overwrote the Patrice site and applied this repo's rebrand migration to the Patrice database on 2026-09-29. Do not remove that check.
+- Local dev URL for this repo is `http://localhost/irish/public`, not `/aesthetic/public`.
 
 ## Demo logins (password `password`)
 
