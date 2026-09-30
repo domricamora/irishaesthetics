@@ -41,11 +41,18 @@ Updated 2026-09-29 (session saved after the chat and dashboard-analytics work).
 
 ## Live
 
-- https://irish.deskpulse.click (server `ssh ck-live`, folder `~/public_html/irish.deskpulse.click`, PHP `/opt/cpanel/ea-php83/root/usr/bin/php`, DB `htrjymuo_irish`). Server keeps its own `.env` (never overwrite).
+| Site | URL | Folder | Database | DB user |
+|---|---|---|---|---|
+| Irish | https://irish.deskpulse.click | `~/public_html/irish.deskpulse.click` | `htrjymuo_irish` | `htrjymuo_irish` |
+| Patrice (sibling) | https://patrice.deskpulse.click | `~/public_html/patrice.deskpulse.click` | `htrjymuo_patrice` | `htrjymuo_patrice` |
+
+- Both run on the one cPanel account `ck-live` (`htrjymuo@ck.deskpulse.click:9022`), PHP `/opt/cpanel/ea-php83/root/usr/bin/php`. This site keeps its own `.env` (never overwrite).
+- Each database user is granted rights on its own database only (`GRANT ALL ON htrjymuo\_irish.*`), so a mistaken `DB_DATABASE` in a `.env` fails at MySQL rather than quietly writing into the other clinic's data.
 - Root `.htaccess` = cPanel php block + repo `.htaccess` (routes into `public/`, blocks source/dotfiles, re-asserts CSP).
-- **Deploy an update:** `APP_URL=https://irish.deskpulse.click npm run build` → tar over ssh (exclude .env .git node_modules tests storage logs) → on server `php artisan migrate --force && php artisan optimize`. Then rebuild locally with `MSYS_NO_PATHCONV=1 ASSET_URL=/irish/public npm run build`.
-- `scripts/deploy.ps1` refuses to run if the target does not match the `CLINIC_ORGANIZATION` slug in `config/clinic.php`. This repo is a fork of the Patrice clinic codebase and once shipped a copy of that script still pointing at `~/public_html/patrice.deskpulse.click`; running it here overwrote the Patrice site and applied this repo's rebrand migration to the Patrice database on 2026-09-29. Do not remove that check.
+- **Deploy an update:** `pwsh -File scripts/deploy.ps1` (add `-IdentityFile` if the key trips OpenSSH's Windows permission check). It verifies the site, the folder and the database before uploading, backs both up under a slug-prefixed name, then migrates and clears and rebuilds every cache.
+- `scripts/deploy.ps1` refuses to run if the target does not match the `CLINIC_ORGANIZATION` slug in `config/clinic.php`. This repo is a fork of the Patrice clinic codebase and once shipped a copy of that script still pointing at `~/public_html/patrice.deskpulse.click`; running it here overwrote the Patrice site and applied this repo's rebrand migration to `htrjymuo_patrice` on 2026-09-29. Do not remove that check, and do not copy `deploy.ps1` between the two project folders.
 - Local dev URL for this repo is `http://localhost/irish/public`, not `/aesthetic/public`.
+- `DB_PREFIX` is supported in `config/database.php` for running inside a shared database, but it is **unset** here because the host grants this site its own. Leaving it unused is deliberate: the prefixed run is what left 54 `irish_*` tables inside the Patrice database.
 
 ## Demo logins (password `password`)
 

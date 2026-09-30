@@ -29,6 +29,13 @@ param(
     [int]$Port = 9022,
     [string]$Remote = '~/public_html/irish.deskpulse.click',
     [string]$AppUrl = 'https://irish.deskpulse.click',
+    # The database that folder is expected to use. The cPanel account grants one
+    # database per site and the name carries the site slug, so this catches a
+    # folder that looks right while its .env points somewhere else. Set
+    # -AllowDatabaseMismatch only when the database is genuinely named
+    # something else.
+    [string]$ExpectedDatabase = '',
+    [switch]$AllowDatabaseMismatch,
     # OpenSSH refuses a key that anyone but you can read. If yours trips that
     # on Windows, point at a copy with clean permissions.
     [string]$IdentityFile = ''
@@ -90,6 +97,43 @@ function Invoke-Remote([string]$Command) {
     if ($LASTEXITCODE -ne 0) { throw "remote command failed: $Command" }
 }
 
+# The two sites run on one account but on separate databases, so the folder is
+# only half the address: the .env inside it names the database that this
+# deploy's `php artisan migrate --force` will actually run against. Checking
+# it here, before a single file is uploaded, is what stops this repository
+# from migrating the sibling site's data even if the folder name is right.
+Write-Host "Confirming $Remote is configured against the '$slug' database..."
+# The quotes around the value are stripped here rather than on the far end.
+# Nesting a quote character inside an ssh command string is what broke this
+# the first time; trimming it in PowerShell has no quoting to get wrong.
+$remoteDbRaw = & ssh @Ssh $Host_ "sed -n 's/^DB_DATABASE=//p' $Remote/.env | head -1"
+$remoteDb = ([string]($remoteDbRaw | Out-String)).Trim().Trim('"').Trim("'")
+
+if ($LASTEXITCODE -ne 0 -or -not $remoteDb) {
+    throw "Could not read DB_DATABASE from $Remote/.env. Refusing to deploy blind."
+}
+
+Write-Host "  remote DB_DATABASE = $remoteDb"
+
+if (-not $AllowDatabaseMismatch) {
+    $wanted = if ($ExpectedDatabase) { $ExpectedDatabase } else { "htrjymuo_$slug" }
+
+    if ($remoteDb -ne $wanted) {
+        throw @"
+Refusing to deploy. The remote folder's .env points at the database
+    $remoteDb
+but this is the '$slug' site, which should use
+    $wanted
+
+`php artisan migrate --force` would apply this repository's migrations to
+that other database. If '$remoteDb' really is this site's database, pass
+-ExpectedDatabase $remoteDb to say so explicitly.
+"@
+    }
+} elseif ($ExpectedDatabase -and $remoteDb -ne $ExpectedDatabase) {
+    throw "Expected $ExpectedDatabase but the remote .env names $remoteDb."
+}
+
 Write-Host 'Checking the tree is clean and the suite passes...'
 if (git status --porcelain) { throw 'Uncommitted changes. Commit before deploying.' }
 php artisan test
@@ -119,9 +163,22 @@ $remoteParent = $Remote.Substring(0, $cut)
 $remoteLeaf = $Remote.Substring($cut + 1)
 
 $stamp = Get-Date -Format 'yyyyMMdd-HHmmss'
-Write-Host "Backing up the live site and database..."
-Invoke-Remote "cd $remoteParent && tar czf ~/backups/site-$stamp.tar.gz $remoteLeaf 2>/dev/null"
-Invoke-Remote "cd $Remote && DB=`$(grep -E '^DB_' .env | sed 's/^export //') && eval `"`$DB`" && mysqldump --single-transaction --quick -h `"`${DB_HOST:-localhost}`" -u `"`$DB_USERNAME`" -p`"`$DB_PASSWORD`" `"`$DB_DATABASE`" > ~/backups/db-$stamp.sql 2>/dev/null"
+# The slug is in the backup names because this account holds several sites and
+# a dump called db-<timestamp>.sql cannot be told apart from another site's.
+# The one that gets restored after an incident is the one you most need to
+# identify at a glance.
+Write-Host 'Backing up the live site and database...'
+Invoke-Remote "cd $remoteParent && tar czf ~/backups/site-$slug-$stamp.tar.gz $remoteLeaf 2>/dev/null"
+Invoke-Remote "cd $Remote && DB=`$(grep -E '^DB_' .env | sed 's/^export //') && eval `"`$DB`" && mysqldump --single-transaction --quick -h `"`${DB_HOST:-localhost}`" -u `"`$DB_USERNAME`" -p`"`$DB_PASSWORD`" `"`$DB_DATABASE`" > ~/backups/db-$slug-$stamp.sql 2>/dev/null"
+
+# A dump that is empty means the mysqldump failed and the deploy would then
+# overwrite the files with no way back. Better to stop here than to discover it
+# during an incident.
+$dumpSize = (& ssh @Ssh $Host_ "wc -c < ~/backups/db-$slug-$stamp.sql").Trim()
+if ($dumpSize -lt 1024) {
+    throw "The database backup is only $dumpSize bytes. Refusing to deploy with no usable restore point."
+}
+Write-Host "  site-$slug-$stamp.tar.gz and db-$slug-$stamp.sql ($dumpSize bytes)"
 
 Write-Host 'Uploading source...'
 git archive --format=tar HEAD | & ssh @Ssh $Host_ "cd $Remote && tar xf -"
@@ -172,4 +229,4 @@ foreach ($path in @('/', '/about', '/journal', '/book')) {
 
 # Put the local links back so the development site still works.
 php artisan wayfinder:generate --with-form | Out-Null
-Write-Host "Deployed. Backups: ~/backups/site-$stamp.tar.gz and db-$stamp.sql"
+Write-Host "Deployed. Backups: ~/backups/site-$slug-$stamp.tar.gz and db-$slug-$stamp.sql"
