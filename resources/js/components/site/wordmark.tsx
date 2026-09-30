@@ -63,7 +63,14 @@ export default function Wordmark({
             : { script: name ?? '', caps: '' };
 
     const mark = (
-        <picture>
+        // The sizing lives on <picture>, not on the <img>. <picture> is the
+        // child of the flex row, so it is the flex item: it is what shrinks,
+        // and a class on the <img> inside it cannot stop that. Left on the
+        // image, the picture was squeezed to 28px on a phone while the image
+        // kept its 40px height, and object-fit:fill stretched the square mark
+        // into a narrow ellipse. The image is then sized to the picture and
+        // object-contain keeps its proportions whatever box it is given.
+        <picture className={cn('block shrink-0', markClassName ?? 'size-10')}>
             <source srcSet={clinic.logo} type="image/webp" />
             <img
                 src={clinic.logo_fallback}
@@ -73,13 +80,17 @@ export default function Wordmark({
                 width={256}
                 height={256}
                 decoding="async"
-                className={cn('size-10 shrink-0', markClassName)}
+                className="h-full w-full object-contain"
             />
         </picture>
     );
 
     if (!split.script) {
-        return <span className={cn('inline-flex items-center', className)}>{mark}</span>;
+        return (
+            <span className={cn('inline-flex items-center', className)}>
+                {mark}
+            </span>
+        );
     }
 
     return (

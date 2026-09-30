@@ -1,5 +1,6 @@
 import { usePage } from '@inertiajs/react';
 
+import { cn } from '@/lib/utils';
 import type { Clinic } from '@/types';
 
 /**
@@ -14,7 +15,11 @@ export default function AppLogoIcon({ className }: { className?: string }) {
     const { clinic } = usePage<{ clinic: Clinic }>().props;
 
     return (
-        <picture>
+        // As in the Wordmark: the sizing goes on <picture>, because that is the
+        // flex item, and the image is then fitted inside it rather than the
+        // other way round. Sizing the <img> alone let the picture be squeezed
+        // by its flex parent and the square mark was stretched to match.
+        <picture className={cn('block shrink-0', className)}>
             <source srcSet={clinic.logo} type="image/webp" />
             <img
                 src={clinic.logo_fallback}
@@ -22,7 +27,7 @@ export default function AppLogoIcon({ className }: { className?: string }) {
                 width={256}
                 height={256}
                 decoding="async"
-                className={className}
+                className="h-full w-full object-contain"
             />
         </picture>
     );

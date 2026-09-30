@@ -55,7 +55,17 @@ export default function SiteLayout({ children }: { children: ReactNode }) {
                 past the first screen takes it away and gives the header the
                 full width to itself.
             */}
-            <p className="bg-plum px-4 py-2.5 text-center text-[0.6875rem] tracking-[0.18em] text-champagne uppercase">
+            <p
+                className={cn(
+                    'bg-plum px-4 py-2.5 text-center text-[0.6875rem] tracking-[0.18em] text-champagne uppercase',
+                    // Taken away while the menu is open so the header sits
+                    // directly under the top of the viewport. The mobile panel
+                    // starts at top-20, which is the header's height; with the
+                    // bar still in the flow at the top of the page the header
+                    // is pushed down by the bar and the panel would overlap it.
+                    open && 'hidden',
+                )}
+            >
                 New clients welcome · Natural results · Medical-led care
             </p>
 
@@ -122,33 +132,47 @@ export default function SiteLayout({ children }: { children: ReactNode }) {
                         </button>
                     </div>
                 </div>
-
-                <nav
-                    id="mobile-nav"
-                    aria-label="Mobile"
-                    className={cn(
-                        'fixed inset-x-0 top-20 bottom-0 bg-background px-4 pt-6 pb-24 sm:px-8 xl:hidden',
-                        open ? 'block' : 'hidden',
-                    )}
-                >
-                    <ul className="divide-y divide-border border-y border-border">
-                        {[
-                            ...nav,
-                            { label: 'Patient login', href: login().url },
-                        ].map((item) => (
-                            <li key={item.label}>
-                                <Link
-                                    href={item.href}
-                                    onClick={() => setOpen(false)}
-                                    className="flex py-4 font-display text-2xl"
-                                >
-                                    {item.label}
-                                </Link>
-                            </li>
-                        ))}
-                    </ul>
-                </nav>
             </header>
+
+            {/*
+                Deliberately a sibling of the header rather than a child of it.
+
+                The header carries backdrop-blur, and backdrop-filter makes an
+                element a containing block for its position:fixed descendants.
+                With the panel inside it, `fixed top-20 bottom-0` was measured
+                against the header's own 80px box instead of the viewport, which
+                collapsed the panel's background to a ~120px strip: the links
+                showed, but the page behind them did too. Outside the header
+                there is no filtered ancestor, so fixed means fixed.
+
+                z-30 keeps it below the header's z-40, so the mark and the
+                close button stay visible and clickable above the panel.
+            */}
+            <nav
+                id="mobile-nav"
+                aria-label="Mobile"
+                className={cn(
+                    'fixed inset-x-0 top-20 bottom-0 z-30 overflow-y-auto bg-background px-4 pt-6 pb-24 sm:px-8 xl:hidden',
+                    open ? 'block' : 'hidden',
+                )}
+            >
+                <ul className="divide-y divide-border border-y border-border">
+                    {[
+                        ...nav,
+                        { label: 'Patient login', href: login().url },
+                    ].map((item) => (
+                        <li key={item.label}>
+                            <Link
+                                href={item.href}
+                                onClick={() => setOpen(false)}
+                                className="flex py-4 font-display text-2xl"
+                            >
+                                {item.label}
+                            </Link>
+                        </li>
+                    ))}
+                </ul>
+            </nav>
 
             <main id="main">{children}</main>
 
@@ -264,8 +288,8 @@ function SiteFooter() {
                             nameClassName="text-[2.75rem]"
                         />
                         <p className="mt-5 max-w-sm text-sm leading-relaxed text-foreground/70">
-                            {clinic.tagline} Physician-led aesthetic and wellness
-                            care in Makati, BGC and Cebu.
+                            {clinic.tagline} Physician-led aesthetic and
+                            wellness care in Makati, BGC and Cebu.
                         </p>
                         <p className="mt-6 text-sm">
                             <a
@@ -333,60 +357,64 @@ function SiteFooter() {
                         </div>
                     </div>
 
-                <form onSubmit={submit} className="lg:col-span-4">
-                    <h2 className="eyebrow">Skin notes, once a month</h2>
-                    <p className="mt-3 text-sm text-foreground/70">
-                        Seasonal care tips and member offers. No spam,
-                        unsubscribe anytime.
-                    </p>
-                    <label htmlFor="newsletter-email" className="sr-only">
-                        Email address
-                    </label>
-                    <div className="mt-5 flex">
-                        <input
-                            id="newsletter-email"
-                            type="email"
-                            required
-                            autoComplete="email"
-                            value={form.data.email}
-                            onChange={(e) =>
-                                form.setData('email', e.target.value)
-                            }
-                            placeholder="you@email.com"
-                            className="h-12 min-w-0 flex-1 border border-input bg-background px-4 text-sm placeholder:text-muted-foreground focus:border-rose-deep focus:outline-none"
-                        />
-                        <button
-                            type="submit"
-                            disabled={form.processing}
-                            className="press btn btn-solid h-12 disabled:opacity-50"
-                        >
-                            Subscribe
-                        </button>
-                    </div>
-                    <label className="mt-3 flex items-start gap-2 text-xs text-foreground/70">
-                        <input
-                            type="checkbox"
-                            required
-                            checked={form.data.privacy_consent}
-                            onChange={(e) =>
-                                form.setData(
-                                    'privacy_consent',
-                                    e.target.checked,
-                                )
-                            }
-                            className="mt-0.5"
-                        />
-                        <span>
-                            I agree to the privacy notice and to receive email
-                            from {clinic.short_name}.
-                        </span>
-                    </label>
-                    {(form.errors.email || form.errors.privacy_consent) && (
-                        <p role="alert" className="mt-2 text-xs text-rose-ink">
-                            {form.errors.email ?? form.errors.privacy_consent}
+                    <form onSubmit={submit} className="lg:col-span-4">
+                        <h2 className="eyebrow">Skin notes, once a month</h2>
+                        <p className="mt-3 text-sm text-foreground/70">
+                            Seasonal care tips and member offers. No spam,
+                            unsubscribe anytime.
                         </p>
-                    )}
-                </form>
+                        <label htmlFor="newsletter-email" className="sr-only">
+                            Email address
+                        </label>
+                        <div className="mt-5 flex">
+                            <input
+                                id="newsletter-email"
+                                type="email"
+                                required
+                                autoComplete="email"
+                                value={form.data.email}
+                                onChange={(e) =>
+                                    form.setData('email', e.target.value)
+                                }
+                                placeholder="you@email.com"
+                                className="h-12 min-w-0 flex-1 border border-input bg-background px-4 text-sm placeholder:text-muted-foreground focus:border-rose-deep focus:outline-none"
+                            />
+                            <button
+                                type="submit"
+                                disabled={form.processing}
+                                className="press btn btn-solid h-12 disabled:opacity-50"
+                            >
+                                Subscribe
+                            </button>
+                        </div>
+                        <label className="mt-3 flex items-start gap-2 text-xs text-foreground/70">
+                            <input
+                                type="checkbox"
+                                required
+                                checked={form.data.privacy_consent}
+                                onChange={(e) =>
+                                    form.setData(
+                                        'privacy_consent',
+                                        e.target.checked,
+                                    )
+                                }
+                                className="mt-0.5"
+                            />
+                            <span>
+                                I agree to the privacy notice and to receive
+                                email from {clinic.short_name}.
+                            </span>
+                        </label>
+                        {(form.errors.email || form.errors.privacy_consent) && (
+                            <p
+                                role="alert"
+                                className="mt-2 text-xs text-rose-ink"
+                            >
+                                {form.errors.email ??
+                                    form.errors.privacy_consent}
+                            </p>
+                        )}
+                    </form>
                 </div>
             </div>
 
